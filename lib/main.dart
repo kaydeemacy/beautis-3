@@ -64,12 +64,38 @@ class BeautisApp extends StatelessWidget {
         AppRoutes.partnerWorkingHours: (_) => const PartnerWorkingHoursPage(),
         AppRoutes.partnerServices: (_) => const PartnerServicesPage(),
         AppRoutes.partnerHome: (_) => const PartnerHomePage(),
+        AppRoutes.partnerCalendar: (_) => const PartnerCalendarPage(),
+        AppRoutes.partnerAppointmentPending: (_) =>
+            const AppointmentPendingPage(),
+        AppRoutes.partnerAppointmentAccepted: (_) =>
+            const AppointmentAcceptedPage(),
+        AppRoutes.partnerAppointmentCanceled: (_) =>
+            const AppointmentCanceledPage(),
+        AppRoutes.partnerReviews: (_) => const PartnerReviewsPage(),
+        AppRoutes.partnerServicesList: (_) => const PartnerServicesListPage(),
+        AppRoutes.partnerEditService: (_) => const PartnerEditServicePage(),
+        AppRoutes.partnerWallet: (_) => const PartnerWalletPage(),
+        AppRoutes.partnerWithdraw: (_) => const PartnerWithdrawPage(),
+        AppRoutes.partnerWithdrawMethod: (_) => const PartnerWithdrawMethodPage(
+              showSuccessBanner: false,
+            ),
+        AppRoutes.partnerWithdrawMethodSuccess: (_) =>
+            const PartnerWithdrawMethodPage(showSuccessBanner: true),
+        AppRoutes.partnerAddBankAccount: (_) => const PartnerAddBankAccountPage(),
+        AppRoutes.partnerWithdrawSuccess: (_) =>
+            const PartnerWithdrawSuccessPage(),
         AppRoutes.partnerPending: (_) => const PartnerPendingBookingsPage(),
         AppRoutes.partnerAccepted: (_) => const PartnerAcceptedBookingsPage(),
         AppRoutes.partnerRescheduled: (_) =>
             const PartnerRescheduledBookingsPage(),
         AppRoutes.partnerCanceled: (_) => const PartnerCanceledBookingsPage(),
         AppRoutes.partnerNotifications: (_) => const PartnerNotificationsPage(),
+        AppRoutes.partnerProfile: (_) => const PartnerProfilePage(),
+        AppRoutes.partnerAboutInfo: (_) => const PartnerAboutInfoPage(),
+        AppRoutes.partnerStaffMembers: (_) => const PartnerStaffMembersPage(),
+        AppRoutes.partnerPortfolio: (_) => const PartnerPortfolioPage(),
+        AppRoutes.partnerPortfolioDetail: (_) =>
+            const PartnerPortfolioDetailPage(),
         AppRoutes.addService: (_) => const AddServicePage(),
         AppRoutes.selectCategory: (_) => const SelectCategoryPage(),
         AppRoutes.selectTechnician: (_) => const SelectTechnicianPage(),
@@ -124,11 +150,30 @@ class AppRoutes {
   static const partnerWorkingHours = '/partner-working-hours';
   static const partnerServices = '/partner-services';
   static const partnerHome = '/partner-home';
+  static const partnerCalendar = '/partner-calendar';
+  static const partnerAppointmentPending = '/partner-appointment-pending';
+  static const partnerAppointmentAccepted = '/partner-appointment-accepted';
+  static const partnerAppointmentCanceled = '/partner-appointment-canceled';
+  static const partnerReviews = '/partner-reviews';
+  static const partnerServicesList = '/partner-services-list';
+  static const partnerEditService = '/partner-edit-service';
+  static const partnerWallet = '/partner-wallet';
+  static const partnerWithdraw = '/partner-withdraw';
+  static const partnerWithdrawMethod = '/partner-withdraw-method';
+  static const partnerWithdrawMethodSuccess =
+      '/partner-withdraw-method-success';
+  static const partnerAddBankAccount = '/partner-add-bank-account';
+  static const partnerWithdrawSuccess = '/partner-withdraw-success';
   static const partnerPending = '/partner-pending';
   static const partnerAccepted = '/partner-accepted';
   static const partnerRescheduled = '/partner-rescheduled';
   static const partnerCanceled = '/partner-canceled';
   static const partnerNotifications = '/partner-notifications';
+  static const partnerProfile = '/partner-profile';
+  static const partnerAboutInfo = '/partner-about-info';
+  static const partnerStaffMembers = '/partner-staff-members';
+  static const partnerPortfolio = '/partner-portfolio';
+  static const partnerPortfolioDetail = '/partner-portfolio-detail';
   static const addService = '/add-service';
   static const selectCategory = '/select-category';
   static const selectTechnician = '/select-technician';
@@ -1596,13 +1641,13 @@ class _PartnerHomePageState extends State<PartnerHomePage> {
     setState(() => _currentTab = index);
     switch (index) {
       case 1:
-        Navigator.of(context).pushNamed(AppRoutes.calendarView);
+        Navigator.of(context).pushNamed(AppRoutes.partnerCalendar);
         break;
       case 2:
-        Navigator.of(context).pushNamed(AppRoutes.partnerServices);
+        Navigator.of(context).pushNamed(AppRoutes.partnerServicesList);
         break;
       case 3:
-        Navigator.of(context).pushNamed(AppRoutes.wallet);
+        Navigator.of(context).pushNamed(AppRoutes.partnerWallet);
         break;
       case 4:
         Navigator.of(context).pushNamed(AppRoutes.profile);
@@ -1756,41 +1801,69 @@ class _PartnerHomePageState extends State<PartnerHomePage> {
                         color: AppColors.textPrimary,
                       ),
                     ),
-                    Text(
-                      'See Calendar',
-                      style: GoogleFonts.poppins(
-                        fontSize: 12,
-                        color: AppColors.accent,
+                    GestureDetector(
+                      onTap: () => Navigator.of(context)
+                          .pushNamed(AppRoutes.partnerCalendar),
+                      child: Text(
+                        'See Calendar',
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          color: AppColors.accent,
+                        ),
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 10),
-                _PartnerBookingRow(
-                  time: '10:00',
-                  period: 'AM',
-                  name: 'Sarah Jenkins',
-                  service: 'Gel Manicure • 45m',
-                  status: 'ACCEPTED',
-                  statusColor: const Color(0xFF26B075),
+                GestureDetector(
+                  onTap: () => Navigator.of(context)
+                      .pushNamed(AppRoutes.partnerAppointmentAccepted),
+                  child: _PartnerBookingRow(
+                    time: '10:00',
+                    period: 'AM',
+                    name: 'Sarah Jenkins',
+                    service: 'Gel Manicure • 45m',
+                    status: 'ACCEPTED',
+                    statusColor: const Color(0xFF26B075),
+                  ),
                 ),
                 const SizedBox(height: 10),
-                _PartnerBookingRow(
-                  time: '01:30',
-                  period: 'PM',
-                  name: 'Emily Rose',
-                  service: 'Haircut & Style • 60m',
-                  status: 'PENDING',
-                  statusColor: const Color(0xFFF4A146),
+                GestureDetector(
+                  onTap: () => Navigator.of(context)
+                      .pushNamed(AppRoutes.partnerAppointmentPending),
+                  child: _PartnerBookingRow(
+                    time: '01:30',
+                    period: 'PM',
+                    name: 'Emily Rose',
+                    service: 'Haircut & Style • 60m',
+                    status: 'PENDING',
+                    statusColor: const Color(0xFFF4A146),
+                  ),
                 ),
                 const SizedBox(height: 14),
-                Text(
-                  'Recent Reviews',
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.textPrimary,
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Recent Reviews',
+                      style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () => Navigator.of(context)
+                          .pushNamed(AppRoutes.partnerReviews),
+                      child: Text(
+                        'View All',
+                        style: GoogleFonts.poppins(
+                          fontSize: 11.5,
+                          color: AppColors.accent,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 10),
                 Row(
@@ -1897,6 +1970,28 @@ class _BottomNavItem {
 
   final IconData icon;
   final String label;
+}
+
+void _handlePartnerNavTap(BuildContext context, int index) {
+  switch (index) {
+    case 0:
+      Navigator.of(context).pushNamed(AppRoutes.partnerHome);
+      break;
+    case 1:
+      Navigator.of(context).pushNamed(AppRoutes.partnerCalendar);
+      break;
+    case 2:
+      Navigator.of(context).pushNamed(AppRoutes.partnerServicesList);
+      break;
+    case 3:
+      Navigator.of(context).pushNamed(AppRoutes.partnerWallet);
+      break;
+    case 4:
+      Navigator.of(context).pushNamed(AppRoutes.partnerProfile);
+      break;
+    default:
+      break;
+  }
 }
 
 class _PartnerStatCard extends StatelessWidget {
@@ -2257,6 +2352,7 @@ class PartnerPendingBookingsPage extends StatelessWidget {
       title: 'Pending Bookings (4)',
       badgeLabel: 'Action Required',
       badgeColor: const Color(0xFFFFB15C),
+      detailRoute: AppRoutes.partnerAppointmentPending,
     );
   }
 }
@@ -2270,6 +2366,7 @@ class PartnerAcceptedBookingsPage extends StatelessWidget {
       title: 'Accepted Bookings (12)',
       badgeLabel: 'Accepted',
       badgeColor: const Color(0xFF5ED39A),
+      detailRoute: AppRoutes.partnerAppointmentAccepted,
     );
   }
 }
@@ -2283,6 +2380,7 @@ class PartnerRescheduledBookingsPage extends StatelessWidget {
       title: 'Rescheduled Bookings (2)',
       badgeLabel: 'Rescheduled Bookings',
       badgeColor: const Color(0xFF9AA4FF),
+      detailRoute: AppRoutes.partnerAppointmentAccepted,
     );
   }
 }
@@ -2296,6 +2394,7 @@ class PartnerCanceledBookingsPage extends StatelessWidget {
       title: 'Canceled Bookings (2)',
       badgeLabel: 'Canceled Bookings',
       badgeColor: const Color(0xFFFF6E6E),
+      detailRoute: AppRoutes.partnerAppointmentCanceled,
     );
   }
 }
@@ -2307,8 +2406,10 @@ class PartnerNotificationsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      bottomNavigationBar:
-          _PartnerBottomNav(currentIndex: 0, onTap: (_) {}),
+      bottomNavigationBar: _PartnerBottomNav(
+        currentIndex: 0,
+        onTap: (index) => _handlePartnerNavTap(context, index),
+      ),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
@@ -2427,6 +2528,2656 @@ class PartnerNotificationsPage extends StatelessWidget {
   }
 }
 
+class PartnerCalendarPage extends StatelessWidget {
+  const PartnerCalendarPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      bottomNavigationBar: _PartnerBottomNav(
+        currentIndex: 1,
+        onTap: (index) => _handlePartnerNavTap(context, index),
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 16, 20, 8),
+              child: Row(
+                children: [
+                  Text(
+                    'Calendar',
+                    style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const Spacer(),
+                  CircleAvatar(
+                    radius: 18,
+                    backgroundColor: Colors.white,
+                    child: const Icon(Icons.search, size: 18),
+                  ),
+                  const SizedBox(width: 10),
+                  CircleAvatar(
+                    radius: 18,
+                    backgroundColor: AppColors.accent,
+                    child: const Icon(Icons.add, size: 18, color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+            const Divider(height: 1),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 12, 20, 8),
+              child: Row(
+                children: [
+                  Text(
+                    'October 2023',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12.5,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: List.generate(5, (index) {
+                  final labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+                  final dates = ['23', '24', '25', '26', '27'];
+                  final selected = index == 1;
+                  return Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(right: index == 4 ? 0 : 8),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                          color:
+                              selected ? AppColors.accent : Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: AppColors.border),
+                        ),
+                        child: Column(
+                          children: [
+                            Text(
+                              labels[index],
+                              style: GoogleFonts.poppins(
+                                fontSize: 11,
+                                color: selected
+                                    ? Colors.white
+                                    : AppColors.textSecondary,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              dates[index],
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: selected
+                                    ? Colors.white
+                                    : AppColors.textPrimary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+              ),
+            ),
+            const SizedBox(height: 8),
+            const Divider(height: 1),
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+                children: [
+                  _CalendarHourRow(label: '09:00'),
+                  const SizedBox(height: 12),
+                  GestureDetector(
+                    onTap: () => Navigator.of(context)
+                        .pushNamed(AppRoutes.partnerAppointmentPending),
+                    child: _CalendarAppointmentCard(
+                      title: 'Sarah Jenkins',
+                      subtitle: 'Gel Manicure',
+                      time: '10:00 - 10:45',
+                      accent: const Color(0xFF3BB273),
+                      helper: 'Lisa M.',
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  _CalendarBreakCard(
+                    title: 'Break Time',
+                    subtitle: 'Personal',
+                    time: '11:00 - 11:30',
+                  ),
+                  const SizedBox(height: 12),
+                  _CalendarHourRow(label: '12:00'),
+                  const SizedBox(height: 12),
+                  GestureDetector(
+                    onTap: () => Navigator.of(context)
+                        .pushNamed(AppRoutes.partnerAppointmentAccepted),
+                    child: _CalendarAppointmentCard(
+                      title: 'Emily Rose',
+                      subtitle: 'Haircut & Style',
+                      time: '01:30 - 02:30',
+                      accent: const Color(0xFFF4A146),
+                      helper: 'Jessica K.',
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  _CalendarHourRow(label: '03:00'),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CalendarHourRow extends StatelessWidget {
+  const _CalendarHourRow({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SizedBox(
+          width: 56,
+          child: Text(
+            label,
+            style: GoogleFonts.poppins(
+              fontSize: 11.5,
+              color: AppColors.textSecondary,
+            ),
+          ),
+        ),
+        Expanded(
+          child: Container(
+            height: 1,
+            color: AppColors.border.withOpacity(0.6),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _CalendarAppointmentCard extends StatelessWidget {
+  const _CalendarAppointmentCard({
+    required this.title,
+    required this.subtitle,
+    required this.time,
+    required this.accent,
+    required this.helper,
+  });
+
+  final String title;
+  final String subtitle;
+  final String time;
+  final Color accent;
+  final String helper;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 4,
+            height: 52,
+            decoration: BoxDecoration(
+              color: accent,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: GoogleFonts.poppins(
+                          fontSize: 12.5,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.textPrimary,
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: AppColors.accentLight,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        time,
+                        style: GoogleFonts.poppins(
+                          fontSize: 10.5,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  subtitle,
+                  style: GoogleFonts.poppins(
+                    fontSize: 11.5,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Row(
+                  children: [
+                    const CircleAvatar(
+                      radius: 8,
+                      backgroundColor: AppColors.accentLight,
+                      child: Icon(Icons.person,
+                          size: 10, color: AppColors.accent),
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      helper,
+                      style: GoogleFonts.poppins(
+                        fontSize: 10.5,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CalendarBreakCard extends StatelessWidget {
+  const _CalendarBreakCard({
+    required this.title,
+    required this.subtitle,
+    required this.time,
+  });
+
+  final String title;
+  final String subtitle;
+  final String time;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF7EFEA),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 4,
+            height: 40,
+            decoration: BoxDecoration(
+              color: AppColors.textSecondary,
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                Text(
+                  subtitle,
+                  style: GoogleFonts.poppins(
+                    fontSize: 11,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Text(
+            time,
+            style: GoogleFonts.poppins(
+              fontSize: 10.5,
+              color: AppColors.textSecondary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AppointmentPendingPage extends StatelessWidget {
+  const AppointmentPendingPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return _AppointmentDetailsScaffold(
+      statusLabel: 'Pending Confirmation',
+      statusColor: const Color(0xFFF4A146),
+      showActions: true,
+      onAccept: () => Navigator.of(context)
+          .pushReplacementNamed(AppRoutes.partnerAppointmentAccepted),
+      onDecline: () => Navigator.of(context)
+          .pushReplacementNamed(AppRoutes.partnerAppointmentCanceled),
+    );
+  }
+}
+
+class AppointmentAcceptedPage extends StatelessWidget {
+  const AppointmentAcceptedPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const _AppointmentDetailsScaffold(
+      statusLabel: 'Accepted',
+      statusColor: Color(0xFF5ED39A),
+      showActions: false,
+    );
+  }
+}
+
+class AppointmentCanceledPage extends StatelessWidget {
+  const AppointmentCanceledPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const _AppointmentDetailsScaffold(
+      statusLabel: 'Canceled Bookings',
+      statusColor: Color(0xFFFF6E6E),
+      showActions: false,
+    );
+  }
+}
+
+class _AppointmentDetailsScaffold extends StatelessWidget {
+  const _AppointmentDetailsScaffold({
+    required this.statusLabel,
+    required this.statusColor,
+    required this.showActions,
+    this.onAccept,
+    this.onDecline,
+  });
+
+  final String statusLabel;
+  final Color statusColor;
+  final bool showActions;
+  final VoidCallback? onAccept;
+  final VoidCallback? onDecline;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                Expanded(
+                  child: Text(
+                    'Appointment Details',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 48),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(color: AppColors.border),
+              ),
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: statusColor.withOpacity(0.15),
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Text(
+                      statusLabel,
+                      style: GoogleFonts.poppins(
+                        fontSize: 11.5,
+                        fontWeight: FontWeight.w600,
+                        color: statusColor,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    'Booking #829310',
+                    style: GoogleFonts.poppins(
+                      fontSize: 11.5,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            _InfoSection(
+              title: 'CLIENT DETAILS',
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      const CircleAvatar(
+                        radius: 20,
+                        backgroundColor: AppColors.accentLight,
+                        child: Icon(Icons.person, color: AppColors.accent),
+                      ),
+                      const SizedBox(width: 10),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Sarah Jenkins',
+                            style: GoogleFonts.poppins(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.textPrimary,
+                            ),
+                          ),
+                          Text(
+                            'New Client • 1st Visit',
+                            style: GoogleFonts.poppins(
+                              fontSize: 11.5,
+                              color: AppColors.textSecondary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _OutlineButton(
+                          label: 'Message',
+                          icon: const Icon(Icons.chat_bubble_outline,
+                              size: 16),
+                          onPressed: () {},
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: _OutlineButton(
+                          label: 'Call',
+                          icon:
+                              const Icon(Icons.call_outlined, size: 16),
+                          onPressed: () {},
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            _InfoSection(
+              title: 'APPOINTMENT INFO',
+              child: Column(
+                children: [
+                  _InfoRow(label: 'Date', value: 'Tue, 24 Oct 2023'),
+                  _InfoRow(label: 'Time', value: '10:00 AM - 10:45 AM'),
+                  _InfoRow(label: 'Duration', value: '45 mins'),
+                  _InfoRow(label: 'Technician', value: 'Lisa M.'),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            _InfoSection(
+              title: 'PAYMENT SUMMARY',
+              child: Column(
+                children: [
+                  _InfoRow(label: 'Gel Manicure', value: '\$45.00'),
+                  Text(
+                    'Standard Service',
+                    style: GoogleFonts.poppins(
+                      fontSize: 11,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                  const Divider(height: 20),
+                  _InfoRow(label: 'Total', value: '\$45.00'),
+                  const SizedBox(height: 6),
+                  Row(
+                    children: [
+                      const Icon(Icons.credit_card,
+                          size: 14, color: Color(0xFF3BB273)),
+                      const SizedBox(width: 6),
+                      Text(
+                        'Paid via Apple Pay',
+                        style: GoogleFonts.poppins(
+                          fontSize: 11,
+                          color: const Color(0xFF3BB273),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            if (showActions) ...[
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: onDecline,
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: AppColors.border),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        minimumSize: const Size(double.infinity, 48),
+                      ),
+                      child: Text(
+                        'Decline',
+                        style: GoogleFonts.poppins(
+                          fontSize: 12.5,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _PrimaryButton(
+                      label: 'Accept Booking',
+                      onPressed: onAccept,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _InfoSection extends StatelessWidget {
+  const _InfoSection({required this.title, required this.child});
+
+  final String title;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: GoogleFonts.poppins(
+              fontSize: 11,
+              letterSpacing: 0.6,
+              fontWeight: FontWeight.w600,
+              color: AppColors.textSecondary,
+            ),
+          ),
+          const SizedBox(height: 10),
+          child,
+        ],
+      ),
+    );
+  }
+}
+
+class _InfoRow extends StatelessWidget {
+  const _InfoRow({required this.label, required this.value});
+
+  final String label;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            label,
+            style: GoogleFonts.poppins(
+              fontSize: 11.5,
+              color: AppColors.textSecondary,
+            ),
+          ),
+          Text(
+            value,
+            style: GoogleFonts.poppins(
+              fontSize: 12.5,
+              fontWeight: FontWeight.w600,
+              color: AppColors.textPrimary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class PartnerReviewsPage extends StatelessWidget {
+  const PartnerReviewsPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                Expanded(
+                  child: Text(
+                    'Reviews',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 48),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(14),
+                border: Border.all(color: AppColors.border),
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    '4.9',
+                    style: GoogleFonts.poppins(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      5,
+                      (index) => const Icon(Icons.star,
+                          size: 16, color: Color(0xFFF4B452)),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'Based on 128 reviews',
+                    style: GoogleFonts.poppins(
+                      fontSize: 11.5,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 14),
+            Wrap(
+              spacing: 8,
+              children: const [
+                _FilterChip(label: 'All', selected: true),
+                _FilterChip(label: '5 Stars', selected: false),
+                _FilterChip(label: '4 Stars', selected: false),
+                _FilterChip(label: 'Lowest', selected: false),
+              ],
+            ),
+            const SizedBox(height: 14),
+            _ReviewListCard(
+              name: 'Sophia M.',
+              time: '2 days ago',
+              text:
+                  'Absolutely loved the service! The technician was so careful and the result is perfect. Will definitely book again.',
+              tag: 'Gel Manicure',
+            ),
+            const SizedBox(height: 12),
+            _ReviewListCard(
+              name: 'Emma R.',
+              time: '1 week ago',
+              text:
+                  'Great atmosphere and friendly staff. The waiting time was a bit longer than expected, but the haircut was great.',
+              tag: 'Haircut & Style',
+            ),
+            const SizedBox(height: 12),
+            _ReviewListCard(
+              name: 'Olivia K.',
+              time: '2 weeks ago',
+              text:
+                  'Best salon in town! I\'ve been coming here for months and they never disappoint.',
+              tag: 'Full Pedicure',
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ReviewListCard extends StatelessWidget {
+  const _ReviewListCard({
+    required this.name,
+    required this.time,
+    required this.text,
+    required this.tag,
+  });
+
+  final String name;
+  final String time;
+  final String text;
+  final String tag;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              const CircleAvatar(
+                radius: 18,
+                backgroundColor: AppColors.accentLight,
+                child: Icon(Icons.person, color: AppColors.accent),
+              ),
+              const SizedBox(width: 10),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: GoogleFonts.poppins(
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  Text(
+                    time,
+                    style: GoogleFonts.poppins(
+                      fontSize: 11,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+              const Spacer(),
+              Row(
+                children: List.generate(
+                  5,
+                  (index) => const Icon(Icons.star,
+                      size: 12, color: Color(0xFFF4B452)),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(
+            text,
+            style: GoogleFonts.poppins(
+              fontSize: 11.5,
+              color: AppColors.textSecondary,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            decoration: BoxDecoration(
+              color: AppColors.accentLight,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Text(
+              tag,
+              style: GoogleFonts.poppins(
+                fontSize: 10.5,
+                color: AppColors.textSecondary,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class PartnerServicesListPage extends StatelessWidget {
+  const PartnerServicesListPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      bottomNavigationBar: _PartnerBottomNav(
+        currentIndex: 2,
+        onTap: (index) => _handlePartnerNavTap(context, index),
+      ),
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+          children: [
+            Text(
+              'Services',
+              style: GoogleFonts.poppins(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 14),
+            Text(
+              'Nails',
+              style: GoogleFonts.poppins(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 10),
+            _ServiceToggleRow(
+              title: 'Gel Manicure',
+              meta: '45 mins • \$45.00',
+              enabled: true,
+              onTap: () => Navigator.of(context)
+                  .pushNamed(AppRoutes.partnerEditService),
+            ),
+            const SizedBox(height: 10),
+            _ServiceToggleRow(
+              title: 'Acrylic Full Set',
+              meta: '90 mins • \$65.00',
+              enabled: true,
+              onTap: () => Navigator.of(context)
+                  .pushNamed(AppRoutes.partnerEditService),
+            ),
+            const SizedBox(height: 10),
+            _ServiceToggleRow(
+              title: 'Pedicure Spa',
+              meta: '60 mins • \$50.00',
+              enabled: false,
+              onTap: () => Navigator.of(context)
+                  .pushNamed(AppRoutes.partnerEditService),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Hair',
+              style: GoogleFonts.poppins(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 10),
+            _ServiceToggleRow(
+              title: 'Haircut & Style',
+              meta: '60 mins • \$80.00',
+              enabled: true,
+              onTap: () => Navigator.of(context)
+                  .pushNamed(AppRoutes.partnerEditService),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ServiceToggleRow extends StatelessWidget {
+  const _ServiceToggleRow({
+    required this.title,
+    required this.meta,
+    required this.enabled,
+    required this.onTap,
+  });
+
+  final String title;
+  final String meta;
+  final bool enabled;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(14),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: AppColors.border),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: GoogleFonts.poppins(
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  Text(
+                    meta,
+                    style: GoogleFonts.poppins(
+                      fontSize: 11.5,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Switch(
+              value: enabled,
+              onChanged: (_) {},
+              activeColor: AppColors.accent,
+            ),
+            const Icon(Icons.chevron_right, color: AppColors.textSecondary),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PartnerEditServicePage extends StatelessWidget {
+  const PartnerEditServicePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                Expanded(
+                  child: Text(
+                    'Edit Service',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 48),
+              ],
+            ),
+            const SizedBox(height: 10),
+            _LabeledField(label: 'Service Name', hint: 'Gel Manicure'),
+            _LabeledField(
+              label: 'Category',
+              hint: 'Nails',
+              trailing: const Icon(Icons.keyboard_arrow_down,
+                  size: 18, color: AppColors.textSecondary),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: _LabeledField(label: 'Price (\$)', hint: '45.00'),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _LabeledField(
+                    label: 'Duration',
+                    hint: '45 mins',
+                    trailing: const Icon(Icons.access_time,
+                        size: 18, color: AppColors.textSecondary),
+                  ),
+                ),
+              ],
+            ),
+            _LabeledField(
+              label: 'Description (Optional)',
+              hint:
+                  'Includes nail shaping, cuticle care, and gel polish application with a glossy finish.',
+              multiLine: true,
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'Available for Booking',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                Switch(
+                  value: true,
+                  onChanged: (_) {},
+                  activeColor: AppColors.accent,
+                ),
+              ],
+            ),
+            Text(
+              'Service is visible to clients',
+              style: GoogleFonts.poppins(
+                fontSize: 11,
+                color: AppColors.textSecondary,
+              ),
+            ),
+            const SizedBox(height: 16),
+            _PrimaryButton(
+              label: 'Save Changes',
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PartnerWalletPage extends StatelessWidget {
+  const PartnerWalletPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      bottomNavigationBar: _PartnerBottomNav(
+        currentIndex: 3,
+        onTap: (index) => _handlePartnerNavTap(context, index),
+      ),
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+          children: [
+            Text(
+              'Wallet',
+              style: GoogleFonts.poppins(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 14),
+            Container(
+              padding: const EdgeInsets.all(18),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: AppColors.border),
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    'Available Balance',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    '\$1,245.50',
+                    style: GoogleFonts.poppins(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  _PrimaryButton(
+                    label: 'Withdraw Funds →',
+                    onPressed: () => Navigator.of(context)
+                        .pushNamed(AppRoutes.partnerWithdraw),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 14),
+            Row(
+              children: [
+                Expanded(
+                  child: _StatTile(
+                    title: 'Pending Clearance',
+                    value: '\$140.00',
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: _StatTile(
+                    title: 'Total Withdrawn',
+                    value: '\$4,500.00',
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Recent Transactions',
+                  style: GoogleFonts.poppins(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                Text(
+                  'View All',
+                  style: GoogleFonts.poppins(
+                    fontSize: 11.5,
+                    color: AppColors.accent,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            _PartnerTransactionRow(
+              title: 'Payout to Bank ...8832',
+              time: 'Oct 22, 2023 • 09:15 AM',
+              amount: '-\$500.00',
+              positive: false,
+            ),
+            const SizedBox(height: 10),
+            _PartnerTransactionRow(
+              title: 'Booking: Sarah Jenkins',
+              time: 'Oct 21, 2023 • 04:30 PM',
+              amount: '+\$45.00',
+              positive: true,
+            ),
+            const SizedBox(height: 10),
+            _PartnerTransactionRow(
+              title: 'Booking: Emily Rose',
+              time: 'Oct 21, 2023 • 02:15 PM',
+              amount: '+\$65.00',
+              positive: true,
+            ),
+            const SizedBox(height: 10),
+            _PartnerTransactionRow(
+              title: 'Booking: Michael Brown',
+              time: 'Oct 20, 2023 • 11:00 AM',
+              amount: '+\$30.00',
+              positive: true,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _StatTile extends StatelessWidget {
+  const _StatTile({required this.title, required this.value});
+
+  final String title;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: GoogleFonts.poppins(
+              fontSize: 10.5,
+              color: AppColors.textSecondary,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            value,
+            style: GoogleFonts.poppins(
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: AppColors.textPrimary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _PartnerTransactionRow extends StatelessWidget {
+  const _PartnerTransactionRow({
+    required this.title,
+    required this.time,
+    required this.amount,
+    required this.positive,
+  });
+
+  final String title;
+  final String time;
+  final String amount;
+  final bool positive;
+
+  @override
+  Widget build(BuildContext context) {
+    final icon = positive ? Icons.arrow_downward : Icons.arrow_upward;
+    final color = positive ? const Color(0xFF26B075) : AppColors.textPrimary;
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Row(
+        children: [
+          CircleAvatar(
+            radius: 16,
+            backgroundColor: positive
+                ? const Color(0xFFE6F7EF)
+                : const Color(0xFFE8EDF6),
+            child: Icon(icon, size: 14, color: color),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: GoogleFonts.poppins(
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                Text(
+                  time,
+                  style: GoogleFonts.poppins(
+                    fontSize: 10.5,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Text(
+            amount,
+            style: GoogleFonts.poppins(
+              fontSize: 12.5,
+              fontWeight: FontWeight.w600,
+              color: positive ? const Color(0xFF26B075) : AppColors.textPrimary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class PartnerWithdrawPage extends StatelessWidget {
+  const PartnerWithdrawPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                Expanded(
+                  child: Text(
+                    'Withdraw Funds',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 48),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'Available to withdraw',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                fontSize: 12,
+                color: AppColors.textSecondary,
+              ),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              '\$1,245.50',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              '\$0.00',
+              style: GoogleFonts.poppins(
+                fontSize: 28,
+                fontWeight: FontWeight.w600,
+                color: const Color(0xFFB8C5D3),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Wrap(
+              spacing: 10,
+              children: const [
+                _FilterChip(label: '\$100', selected: false),
+                _FilterChip(label: '\$500', selected: false),
+                _FilterChip(label: 'Max', selected: true),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Withdraw to',
+              style: GoogleFonts.poppins(
+                fontSize: 12.5,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 8),
+            InkWell(
+              onTap: () => Navigator.of(context)
+                  .pushNamed(AppRoutes.partnerWithdrawMethod),
+              borderRadius: BorderRadius.circular(14),
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: AppColors.border),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(Icons.account_balance, color: AppColors.accent),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Chase Bank',
+                            style: GoogleFonts.poppins(
+                              fontSize: 12.5,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.textPrimary,
+                            ),
+                          ),
+                          Text(
+                            '**** 8832',
+                            style: GoogleFonts.poppins(
+                              fontSize: 11,
+                              color: AppColors.textSecondary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Icon(Icons.chevron_right,
+                        color: AppColors.textSecondary),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 14),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: const Color(0xFFFFF4E5),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: const Color(0xFFF1C68D)),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.timer_outlined,
+                      size: 16, color: Color(0xFFE0962D)),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      'Funds usually arrive within 1-2 business\ndays depending on your bank.',
+                      style: GoogleFonts.poppins(
+                        fontSize: 11,
+                        color: const Color(0xFFE0962D),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            _PrimaryButton(
+              label: 'Withdraw Funds',
+              onPressed: () => Navigator.of(context)
+                  .pushNamed(AppRoutes.partnerWithdrawSuccess),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PartnerWithdrawSuccessPage extends StatelessWidget {
+  const PartnerWithdrawSuccessPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 24, 20, 24),
+          child: Column(
+            children: [
+              const SizedBox(height: 24),
+              Container(
+                height: 64,
+                width: 64,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.accentLight,
+                ),
+                child: const Icon(Icons.check,
+                    color: AppColors.accent, size: 32),
+              ),
+              const SizedBox(height: 16),
+              Text(
+                'Withdrawal Initiated',
+                style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Your funds are being processed and\nwill reach your account in 1-3\nbusiness days.',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.poppins(
+                  fontSize: 12,
+                  color: AppColors.textSecondary,
+                ),
+              ),
+              const SizedBox(height: 18),
+              Container(
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: AppColors.border),
+                ),
+                child: Column(
+                  children: [
+                    _InfoRow(label: 'Amount', value: '\$450.00'),
+                    _InfoRow(label: 'To Account', value: 'Chase Bank •••• 8832'),
+                    _InfoRow(
+                        label: 'Date', value: 'Oct 24, 2023, 10:30 AM'),
+                    _InfoRow(label: 'Reference ID', value: '#TRX-89201'),
+                  ],
+                ),
+              ),
+              const Spacer(),
+              _PrimaryButton(
+                label: 'Back to Wallet',
+                onPressed: () => Navigator.of(context)
+                    .pushReplacementNamed(AppRoutes.partnerWallet),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class PartnerWithdrawMethodPage extends StatelessWidget {
+  const PartnerWithdrawMethodPage({super.key, required this.showSuccessBanner});
+
+  final bool showSuccessBanner;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                Expanded(
+                  child: Text(
+                    'Withdrawal Method',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 48),
+              ],
+            ),
+            if (showSuccessBanner) ...[
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFE8FBF3),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: const Color(0xFFA6E9CC)),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(Icons.check_circle,
+                        color: Color(0xFF26B075), size: 18),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      child: Text(
+                        'Bank account added successfully. It is\nnow available for withdrawals.',
+                        style: GoogleFonts.poppins(
+                          fontSize: 11.5,
+                          color: const Color(0xFF2A7B5C),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+            const SizedBox(height: 16),
+            Text(
+              'LINKED ACCOUNTS',
+              style: GoogleFonts.poppins(
+                fontSize: 11,
+                letterSpacing: 0.6,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textSecondary,
+              ),
+            ),
+            const SizedBox(height: 10),
+            _BankAccountCard(
+              name: 'Chase Bank',
+              masked: '**** 8832',
+              selected: true,
+            ),
+            const SizedBox(height: 12),
+            _BankAccountCard(
+              name: 'Wells Fargo',
+              masked: '**** 4510',
+              selected: false,
+            ),
+            const SizedBox(height: 12),
+            OutlinedButton.icon(
+              onPressed: () => Navigator.of(context)
+                  .pushNamed(AppRoutes.partnerAddBankAccount),
+              icon: const Icon(Icons.add, color: AppColors.textSecondary),
+              label: Text(
+                'Add New Bank Account',
+                style: GoogleFonts.poppins(
+                  fontSize: 12,
+                  color: AppColors.textSecondary,
+                ),
+              ),
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: AppColors.border),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                minimumSize: const Size(double.infinity, 52),
+              ),
+            ),
+            const SizedBox(height: 20),
+            _PrimaryButton(
+              label: 'Confirm Withdrawal Method',
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _BankAccountCard extends StatelessWidget {
+  const _BankAccountCard({
+    required this.name,
+    required this.masked,
+    required this.selected,
+  });
+
+  final String name;
+  final String masked;
+  final bool selected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: selected ? const Color(0xFFF9EDEE) : Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(
+            color: selected ? AppColors.accent : AppColors.border),
+      ),
+      child: Row(
+        children: [
+          Container(
+            height: 36,
+            width: 36,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+              color: Colors.white,
+              border: Border.all(color: AppColors.border),
+            ),
+            child: const Icon(Icons.account_balance,
+                size: 18, color: AppColors.textSecondary),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style: GoogleFonts.poppins(
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                Text(
+                  masked,
+                  style: GoogleFonts.poppins(
+                    fontSize: 11,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Icon(
+            selected ? Icons.check_circle : Icons.radio_button_unchecked,
+            color: selected ? AppColors.accent : AppColors.border,
+            size: 18,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class PartnerAddBankAccountPage extends StatelessWidget {
+  const PartnerAddBankAccountPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                Expanded(
+                  child: Text(
+                    'Add Bank Account',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 48),
+              ],
+            ),
+            const SizedBox(height: 10),
+            _LabeledField(label: 'Account Holder Name', hint: ''),
+            _LabeledField(label: 'Bank Name', hint: ''),
+            _LabeledField(label: 'Routing Number', hint: ''),
+            _LabeledField(label: 'Account Number', hint: ''),
+            const SizedBox(height: 6),
+            Text(
+              'Your account details are encrypted and secure.',
+              style: GoogleFonts.poppins(
+                fontSize: 11,
+                color: AppColors.textSecondary,
+              ),
+            ),
+            const SizedBox(height: 16),
+            _PrimaryButton(
+              label: 'Save Account',
+              onPressed: () => Navigator.of(context)
+                  .pushNamed(AppRoutes.partnerWithdrawMethodSuccess),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PartnerAboutInfoPage extends StatelessWidget {
+  const PartnerAboutInfoPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                Expanded(
+                  child: Text(
+                    'About & Info',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 48),
+              ],
+            ),
+            const SizedBox(height: 12),
+            _EditableInfoCard(
+              title: 'About Salon',
+              contentTitle: 'Description',
+              contentBody:
+                  'Glow & Polish Studio is a premier beauty destination in downtown, specializing in organic nail treatments and bespoke nail art. We believe in providing a relaxing atmosphere where you can unwind and leave feeling beautiful.',
+            ),
+            const SizedBox(height: 12),
+            _EditableInfoCard(
+              title: 'Amenities',
+              contentTitle: 'Available amenities',
+              chips: const ['Free Wi-Fi', 'Parking', 'Coffee', 'AC'],
+            ),
+            const SizedBox(height: 12),
+            _EditableInfoCard(
+              title: 'Location & Contact',
+              contentTitle: 'Street Address',
+              contentBody: '124 Market Street',
+              secondaryTitle: 'City & Zip Code',
+              secondaryBody: 'San Francisco, CA 94103',
+              footer: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 120,
+                    decoration: BoxDecoration(
+                      color: AppColors.accentLight,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Center(
+                      child: Icon(Icons.map, color: AppColors.textSecondary),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    'Phone Number',
+                    style: GoogleFonts.poppins(
+                      fontSize: 11,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '+1 (555) 123-4567',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12.5,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Email Address',
+                    style: GoogleFonts.poppins(
+                      fontSize: 11,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'contact@glowpolish.com',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12.5,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            _PrimaryButton(
+              label: 'Save Changes',
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _EditableInfoCard extends StatelessWidget {
+  const _EditableInfoCard({
+    required this.title,
+    required this.contentTitle,
+    this.contentBody,
+    this.secondaryTitle,
+    this.secondaryBody,
+    this.footer,
+    this.chips,
+  });
+
+  final String title;
+  final String contentTitle;
+  final String? contentBody;
+  final String? secondaryTitle;
+  final String? secondaryBody;
+  final Widget? footer;
+  final List<String>? chips;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Text(
+                title,
+                style: GoogleFonts.poppins(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+              const Spacer(),
+              const Icon(Icons.edit_outlined,
+                  size: 16, color: AppColors.textSecondary),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(
+            contentTitle,
+            style: GoogleFonts.poppins(
+              fontSize: 11,
+              color: AppColors.textSecondary,
+            ),
+          ),
+          if (contentBody != null) ...[
+            const SizedBox(height: 6),
+            Text(
+              contentBody!,
+              style: GoogleFonts.poppins(
+                fontSize: 11.5,
+                color: AppColors.textPrimary,
+              ),
+            ),
+          ],
+          if (chips != null) ...[
+            const SizedBox(height: 10),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: chips!
+                  .map((chip) => Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: AppColors.accentLight,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Text(
+                          chip,
+                          style: GoogleFonts.poppins(
+                            fontSize: 10.5,
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ))
+                  .toList(),
+            ),
+          ],
+          if (secondaryTitle != null) ...[
+            const SizedBox(height: 12),
+            Text(
+              secondaryTitle!,
+              style: GoogleFonts.poppins(
+                fontSize: 11,
+                color: AppColors.textSecondary,
+              ),
+            ),
+          ],
+          if (secondaryBody != null) ...[
+            const SizedBox(height: 6),
+            Text(
+              secondaryBody!,
+              style: GoogleFonts.poppins(
+                fontSize: 11.5,
+                color: AppColors.textPrimary,
+              ),
+            ),
+          ],
+          if (footer != null) ...[
+            const SizedBox(height: 12),
+            footer!,
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class PartnerStaffMembersPage extends StatelessWidget {
+  const PartnerStaffMembersPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                Expanded(
+                  child: Text(
+                    'Staff Members',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 48),
+              ],
+            ),
+            const SizedBox(height: 12),
+            ...[
+              _StaffRow(name: 'Sarah Johnson', role: 'Senior Stylist', selected: true),
+              _StaffRow(name: 'Michael Chen', role: 'Color Specialist', selected: false),
+              _StaffRow(name: 'Jessica Davis', role: 'Nail Technician', selected: false),
+              _StaffRow(name: 'David Wilson', role: 'Barber', selected: false),
+              _StaffRow(name: 'Emily White', role: 'Makeup Artist', selected: false),
+            ],
+            const SizedBox(height: 18),
+            OutlinedButton.icon(
+              onPressed: () =>
+                  Navigator.of(context).pushNamed(AppRoutes.addStaff),
+              icon: const Icon(Icons.add, color: AppColors.accent),
+              label: Text(
+                'Add Staff',
+                style: GoogleFonts.poppins(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.accent,
+                ),
+              ),
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: AppColors.border),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                minimumSize: const Size(double.infinity, 52),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _StaffRow extends StatelessWidget {
+  const _StaffRow({
+    required this.name,
+    required this.role,
+    required this.selected,
+  });
+
+  final String name;
+  final String role;
+  final bool selected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 14),
+      child: Row(
+        children: [
+          const CircleAvatar(
+            radius: 18,
+            backgroundColor: AppColors.accentLight,
+            child: Icon(Icons.person, color: AppColors.accent),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  name,
+                  style: GoogleFonts.poppins(
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                Text(
+                  role,
+                  style: GoogleFonts.poppins(
+                    fontSize: 11,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          if (selected)
+            const Icon(Icons.check, color: AppColors.accent),
+        ],
+      ),
+    );
+  }
+}
+
+class PartnerPortfolioPage extends StatelessWidget {
+  const PartnerPortfolioPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      bottomNavigationBar:
+          _PartnerBottomNav(currentIndex: 2, onTap: (index) => _handlePartnerNavTap(context, index)),
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+          children: [
+            Text(
+              'Our Portfolio',
+              style: GoogleFonts.poppins(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Wrap(
+              spacing: 8,
+              children: const [
+                _FilterChip(label: 'All Works', selected: true),
+                _FilterChip(label: 'Nails', selected: false),
+                _FilterChip(label: 'Hair Styling', selected: false),
+                _FilterChip(label: 'Makeup', selected: false),
+              ],
+            ),
+            const SizedBox(height: 12),
+            GridView.count(
+              crossAxisCount: 2,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+              childAspectRatio: 0.75,
+              children: List.generate(8, (index) {
+                final labels = [
+                  'Abstract Gel Art',
+                  'Blonde Balayage',
+                  'Soft Glam Look',
+                  'Bridal Updo',
+                  'Classic Red',
+                  'Textured Waves',
+                  'Pink Acrylics',
+                  'Hydra Facial',
+                ];
+                return GestureDetector(
+                  onTap: () => Navigator.of(context)
+                      .pushNamed(AppRoutes.partnerPortfolioDetail),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.accentLight,
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                          child: const Icon(Icons.image,
+                              color: AppColors.textSecondary, size: 32),
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(
+                        labels[index],
+                        style: GoogleFonts.poppins(
+                          fontSize: 11.5,
+                          color: AppColors.textPrimary,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+            ),
+            const SizedBox(height: 16),
+            _PrimaryButton(
+              label: '+  Add New Item',
+              onPressed: () => Navigator.of(context)
+                  .pushNamed(AppRoutes.partnerPortfolioDetail),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PartnerPortfolioDetailPage extends StatelessWidget {
+  const PartnerPortfolioDetailPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                Expanded(
+                  child: Text(
+                    'Abstract Gel Art',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 48),
+              ],
+            ),
+            const SizedBox(height: 12),
+            _InfoSection(
+              title: 'Basic Details',
+              child: Column(
+                children: const [
+                  _InfoRow(label: 'Item Name', value: 'Abstract Gel Art'),
+                  _InfoRow(label: 'Category', value: 'Nails'),
+                  _InfoRow(label: 'Duration', value: '60 mins'),
+                  _InfoRow(label: 'Price', value: '\$65.00'),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            _EditableInfoCard(
+              title: 'Cover Photo',
+              contentTitle: '',
+              contentBody: null,
+              footer: Container(
+                height: 160,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(14),
+                  color: AppColors.accentLight,
+                ),
+                child: const Icon(Icons.image,
+                    color: AppColors.textSecondary, size: 40),
+              ),
+            ),
+            const SizedBox(height: 12),
+            _EditableInfoCard(
+              title: 'Assigned Team',
+              contentTitle: '',
+              contentBody: null,
+              footer: Column(
+                children: const [
+                  _AssignedStaffRow(name: 'Sarah Jenkins', role: 'Senior Nail Tech'),
+                  SizedBox(height: 8),
+                  _AssignedStaffRow(name: 'Jessica May', role: 'Nail Artist'),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            _EditableInfoCard(
+              title: 'Gallery',
+              contentTitle: '',
+              contentBody: null,
+              footer: Row(
+                children: List.generate(
+                  3,
+                  (index) => Expanded(
+                    child: Container(
+                      height: 72,
+                      margin: EdgeInsets.only(right: index == 2 ? 0 : 8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        color: AppColors.accentLight,
+                      ),
+                      child: const Icon(Icons.image,
+                          color: AppColors.textSecondary, size: 20),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            _PrimaryButton(
+              label: 'Save Changes',
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _AssignedStaffRow extends StatelessWidget {
+  const _AssignedStaffRow({required this.name, required this.role});
+
+  final String name;
+  final String role;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const CircleAvatar(
+          radius: 18,
+          backgroundColor: AppColors.accentLight,
+          child: Icon(Icons.person, color: AppColors.accent),
+        ),
+        const SizedBox(width: 10),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              name,
+              style: GoogleFonts.poppins(
+                fontSize: 12.5,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            Text(
+              role,
+              style: GoogleFonts.poppins(
+                fontSize: 11,
+                color: AppColors.textSecondary,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class PartnerProfilePage extends StatelessWidget {
+  const PartnerProfilePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      bottomNavigationBar:
+          _PartnerBottomNav(currentIndex: 4, onTap: (index) => _handlePartnerNavTap(context, index)),
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+          children: [
+            Text(
+              'Profile',
+              style: GoogleFonts.poppins(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: AppColors.border),
+              ),
+              child: Column(
+                children: [
+                  const CircleAvatar(
+                    radius: 30,
+                    backgroundColor: AppColors.accentLight,
+                    child: Icon(Icons.person, color: AppColors.accent),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Glow & Polish Studio',
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  Text(
+                    'Downtown • 4.9 | 128 Reviews',
+                    style: GoogleFonts.poppins(
+                      fontSize: 11.5,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  OutlinedButton(
+                    onPressed: () => Navigator.of(context)
+                        .pushNamed(AppRoutes.partnerAboutInfo),
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(color: AppColors.border),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                    ),
+                    child: Text(
+                      'Edit Details',
+                      style: GoogleFonts.poppins(
+                        fontSize: 12.5,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            _ProfileSection(
+              title: 'BUSINESS MANAGEMENT',
+              children: [
+                _ProfileNavRow(
+                  label: 'About',
+                  onTap: () =>
+                      Navigator.of(context).pushNamed(AppRoutes.partnerAboutInfo),
+                ),
+                _ProfileNavRow(
+                  label: 'Working Hours',
+                  onTap: () => Navigator.of(context)
+                      .pushNamed(AppRoutes.partnerWorkingHours),
+                ),
+                _ProfileNavRow(
+                  label: 'Staff Members',
+                  onTap: () => Navigator.of(context)
+                      .pushNamed(AppRoutes.partnerStaffMembers),
+                ),
+                _ProfileNavRow(
+                  label: 'Portfolio',
+                  onTap: () => Navigator.of(context)
+                      .pushNamed(AppRoutes.partnerPortfolio),
+                ),
+                _ProfileNavRow(
+                  label: 'Reviews',
+                  onTap: () => Navigator.of(context)
+                      .pushNamed(AppRoutes.partnerReviews),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            _ProfileSection(
+              title: 'APP SETTINGS',
+              children: [
+                _ProfileNavRow(
+                  label: 'Language',
+                  trailing: Text(
+                    'English',
+                    style: GoogleFonts.poppins(
+                      fontSize: 11.5,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                  onTap: () {},
+                ),
+                _ProfileNavRow(
+                  label: 'Notifications',
+                  onTap: () => Navigator.of(context)
+                      .pushNamed(AppRoutes.partnerNotifications),
+                ),
+                _ProfileNavRow(
+                  label: 'Privacy & Terms',
+                  onTap: () {},
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ProfileSection extends StatelessWidget {
+  const _ProfileSection({required this.title, required this.children});
+
+  final String title;
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: GoogleFonts.poppins(
+            fontSize: 11,
+            letterSpacing: 0.6,
+            fontWeight: FontWeight.w600,
+            color: AppColors.textSecondary,
+          ),
+        ),
+        const SizedBox(height: 8),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: AppColors.border),
+          ),
+          child: Column(children: children),
+        ),
+      ],
+    );
+  }
+}
+
+class _ProfileNavRow extends StatelessWidget {
+  const _ProfileNavRow({
+    required this.label,
+    required this.onTap,
+    this.trailing,
+  });
+
+  final String label;
+  final VoidCallback onTap;
+  final Widget? trailing;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+        child: Row(
+          children: [
+            const Icon(Icons.circle, size: 18, color: AppColors.accentLight),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Text(
+                label,
+                style: GoogleFonts.poppins(
+                  fontSize: 12.5,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+            ),
+            if (trailing != null) trailing!,
+            const SizedBox(width: 6),
+            const Icon(Icons.chevron_right, color: AppColors.textSecondary),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _PartnerNotificationCard extends StatelessWidget {
   const _PartnerNotificationCard({
     required this.title,
@@ -2504,18 +5255,22 @@ class _PartnerBookingListPage extends StatelessWidget {
     required this.title,
     required this.badgeLabel,
     required this.badgeColor,
+    required this.detailRoute,
   });
 
   final String title;
   final String badgeLabel;
   final Color badgeColor;
+  final String detailRoute;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      bottomNavigationBar:
-          _PartnerBottomNav(currentIndex: 0, onTap: (_) {}),
+      bottomNavigationBar: _PartnerBottomNav(
+        currentIndex: 0,
+        onTap: (index) => _handlePartnerNavTap(context, index),
+      ),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
@@ -2550,6 +5305,7 @@ class _PartnerBookingListPage extends StatelessWidget {
                 badgeLabel: badgeLabel,
                 badgeColor: badgeColor,
                 dayLabel: 'Today',
+                onTap: () => Navigator.of(context).pushNamed(detailRoute),
               ),
               _PartnerBookingListCard(
                 time: '03:00 PM • 45 min',
@@ -2559,6 +5315,7 @@ class _PartnerBookingListPage extends StatelessWidget {
                 badgeLabel: badgeLabel,
                 badgeColor: badgeColor,
                 dayLabel: 'Today',
+                onTap: () => Navigator.of(context).pushNamed(detailRoute),
               ),
               _PartnerBookingListCard(
                 time: '10:00 AM • 30 min',
@@ -2568,6 +5325,7 @@ class _PartnerBookingListPage extends StatelessWidget {
                 badgeLabel: badgeLabel,
                 badgeColor: badgeColor,
                 dayLabel: 'Tomorrow',
+                onTap: () => Navigator.of(context).pushNamed(detailRoute),
               ),
               _PartnerBookingListCard(
                 time: '11:30 AM • 60 min',
@@ -2577,6 +5335,7 @@ class _PartnerBookingListPage extends StatelessWidget {
                 badgeLabel: badgeLabel,
                 badgeColor: badgeColor,
                 dayLabel: 'Tomorrow',
+                onTap: () => Navigator.of(context).pushNamed(detailRoute),
               ),
             ],
           ],
@@ -2595,6 +5354,7 @@ class _PartnerBookingListCard extends StatelessWidget {
     required this.badgeLabel,
     required this.badgeColor,
     required this.dayLabel,
+    required this.onTap,
   });
 
   final String time;
@@ -2604,100 +5364,105 @@ class _PartnerBookingListCard extends StatelessWidget {
   final String badgeLabel;
   final Color badgeColor;
   final String dayLabel;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 14),
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppColors.border),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const Icon(Icons.schedule,
-                  size: 14, color: AppColors.textSecondary),
-              const SizedBox(width: 6),
-              Text(
-                time,
-                style: GoogleFonts.poppins(
-                  fontSize: 11.5,
-                  color: AppColors.textSecondary,
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(14),
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 14),
+        padding: const EdgeInsets.all(14),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: AppColors.border),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                const Icon(Icons.schedule,
+                    size: 14, color: AppColors.textSecondary),
+                const SizedBox(width: 6),
+                Text(
+                  time,
+                  style: GoogleFonts.poppins(
+                    fontSize: 11.5,
+                    color: AppColors.textSecondary,
+                  ),
                 ),
-              ),
-              const Spacer(),
-              Text(
-                dayLabel,
-                style: GoogleFonts.poppins(
-                  fontSize: 11,
-                  color: AppColors.textSecondary,
+                const Spacer(),
+                Text(
+                  dayLabel,
+                  style: GoogleFonts.poppins(
+                    fontSize: 11,
+                    color: AppColors.textSecondary,
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 18,
-                backgroundColor: AppColors.accentLight,
-                child: const Icon(Icons.person, color: AppColors.accent),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      name,
-                      style: GoogleFonts.poppins(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.textPrimary,
+              ],
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                CircleAvatar(
+                  radius: 18,
+                  backgroundColor: AppColors.accentLight,
+                  child: const Icon(Icons.person, color: AppColors.accent),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        name,
+                        style: GoogleFonts.poppins(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.textPrimary,
+                        ),
                       ),
-                    ),
-                    Text(
-                      service,
-                      style: GoogleFonts.poppins(
-                        fontSize: 11.5,
-                        color: AppColors.textSecondary,
+                      Text(
+                        service,
+                        style: GoogleFonts.poppins(
+                          fontSize: 11.5,
+                          color: AppColors.textSecondary,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
+                Text(
+                  price,
+                  style: GoogleFonts.poppins(
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              decoration: BoxDecoration(
+                color: badgeColor.withOpacity(0.18),
+                borderRadius: BorderRadius.circular(16),
               ),
-              Text(
-                price,
+              child: Text(
+                badgeLabel,
                 style: GoogleFonts.poppins(
-                  fontSize: 12.5,
+                  fontSize: 10.5,
                   fontWeight: FontWeight.w600,
-                  color: AppColors.textPrimary,
+                  color: badgeColor,
                 ),
               ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-            decoration: BoxDecoration(
-              color: badgeColor.withOpacity(0.18),
-              borderRadius: BorderRadius.circular(16),
             ),
-            child: Text(
-              badgeLabel,
-              style: GoogleFonts.poppins(
-                fontSize: 10.5,
-                fontWeight: FontWeight.w600,
-                color: badgeColor,
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
