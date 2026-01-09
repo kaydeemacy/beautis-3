@@ -27,6 +27,35 @@ class BeautisApp extends StatelessWidget {
         AppRoutes.home: (_) => const HomePage(),
         AppRoutes.notifications: (_) => const NotificationsPage(),
         AppRoutes.search: (_) => const SearchPage(),
+        AppRoutes.filters: (_) => const FiltersPage(),
+        AppRoutes.homeServices: (_) => const HomeServicesPage(),
+        AppRoutes.inSalon: (_) => const InSalonPage(),
+        AppRoutes.offersDeals: (_) => const OffersDealsPage(),
+        AppRoutes.specialOffer: (_) => const SpecialOfferPage(),
+        AppRoutes.sendGift: (_) => const SendGiftPage(),
+        AppRoutes.contactAccess: (_) => const ContactAccessPage(),
+        AppRoutes.salonDetail: (_) => const SalonDetailPage(),
+        AppRoutes.salonAbout: (_) => const SalonAboutPage(),
+        AppRoutes.salonReviews: (_) => const SalonReviewsPage(),
+        AppRoutes.salonPortfolio: (_) => const SalonPortfolioPage(),
+        AppRoutes.portfolioDetail: (_) => const PortfolioDetailPage(),
+        AppRoutes.booking: (_) => const BookingPage(),
+        AppRoutes.reviewBooking: (_) => const ReviewBookingPage(),
+        AppRoutes.bookingRecipient: (_) => const BookingRecipientPage(),
+        AppRoutes.bookingConfirmed: (_) => const BookingConfirmedPage(),
+        AppRoutes.addedToCalendar: (_) => const AddedToCalendarPage(),
+        AppRoutes.calendarView: (_) => const CalendarViewPage(),
+        AppRoutes.selectOccasion: (_) => const SelectOccasionPage(),
+        AppRoutes.giftCard: (_) => const GiftCardPage(),
+        AppRoutes.giftReviewPay: (_) => const GiftReviewPayPage(),
+        AppRoutes.giftPaymentConfirmed: (_) => const GiftPaymentConfirmedPage(),
+        AppRoutes.redeemCode: (_) => const RedeemCodePage(),
+        AppRoutes.wallet: (_) => const WalletPage(),
+        AppRoutes.addMoney: (_) => const AddMoneyPage(),
+        AppRoutes.addNewCard: (_) => const AddNewCardPage(),
+        AppRoutes.myBookings: (_) => const MyBookingsPage(),
+        AppRoutes.profile: (_) => const ProfilePage(),
+        AppRoutes.explore: (_) => const ExplorePage(),
       },
       home: const SplashPage(),
     );
@@ -41,6 +70,35 @@ class AppRoutes {
   static const home = '/home';
   static const notifications = '/notifications';
   static const search = '/search';
+  static const filters = '/filters';
+  static const homeServices = '/home-services';
+  static const inSalon = '/in-salon';
+  static const offersDeals = '/offers-deals';
+  static const specialOffer = '/special-offer';
+  static const sendGift = '/send-gift';
+  static const contactAccess = '/contact-access';
+  static const salonDetail = '/salon-detail';
+  static const salonAbout = '/salon-about';
+  static const salonReviews = '/salon-reviews';
+  static const salonPortfolio = '/salon-portfolio';
+  static const portfolioDetail = '/portfolio-detail';
+  static const booking = '/booking';
+  static const reviewBooking = '/review-booking';
+  static const bookingRecipient = '/booking-recipient';
+  static const bookingConfirmed = '/booking-confirmed';
+  static const addedToCalendar = '/added-to-calendar';
+  static const calendarView = '/calendar-view';
+  static const selectOccasion = '/select-occasion';
+  static const giftCard = '/gift-card';
+  static const giftReviewPay = '/gift-review-pay';
+  static const giftPaymentConfirmed = '/gift-payment-confirmed';
+  static const redeemCode = '/redeem-code';
+  static const wallet = '/wallet';
+  static const addMoney = '/add-money';
+  static const addNewCard = '/add-new-card';
+  static const myBookings = '/my-bookings';
+  static const profile = '/profile';
+  static const explore = '/explore';
 }
 
 class AppColors {
@@ -829,6 +887,26 @@ class _HomePageState extends State<HomePage> {
   bool _showLanguageMenu = false;
   String _language = 'English';
 
+  void _handleBottomNav(int index) {
+    setState(() => _currentTab = index);
+    switch (index) {
+      case 1:
+        Navigator.of(context).pushNamed(AppRoutes.explore);
+        break;
+      case 2:
+        Navigator.of(context).pushNamed(AppRoutes.myBookings);
+        break;
+      case 3:
+        Navigator.of(context).pushNamed(AppRoutes.wallet);
+        break;
+      case 4:
+        Navigator.of(context).pushNamed(AppRoutes.profile);
+        break;
+      default:
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -928,14 +1006,16 @@ class _HomePageState extends State<HomePage> {
               _OfferCard(
                 title: '20% OFF First Booking',
                 subtitle: 'Use code: BEAUTY20',
-                onTap: () {},
+                onTap: () =>
+                    Navigator.of(context).pushNamed(AppRoutes.specialOffer),
               ),
               const SizedBox(height: 12),
               _ActionCard(
                 title: 'Send a Beauty Gift',
                 subtitle: 'Surprise friends with spa days or\ncustom cards',
                 leading: Icons.favorite_border,
-                onTap: () {},
+                onTap: () => Navigator.of(context)
+                    .pushNamed(AppRoutes.sendGift),
               ),
               const SizedBox(height: 18),
               _SectionHeader(
@@ -983,7 +1063,7 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: _BottomNavBar(
         currentIndex: _currentTab,
-        onTap: (index) => setState(() => _currentTab = index),
+        onTap: _handleBottomNav,
       ),
     );
   }
@@ -1195,10 +1275,18 @@ class _SearchPageState extends State<SearchPage> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 children: [
-                  Image.asset(
-                    'assets/home/icon_filter.png',
-                    height: 18,
-                    color: AppColors.textSecondary,
+                  InkWell(
+                    onTap: () =>
+                        Navigator.of(context).pushNamed(AppRoutes.filters),
+                    borderRadius: BorderRadius.circular(12),
+                    child: Padding(
+                      padding: const EdgeInsets.all(6),
+                      child: Image.asset(
+                        'assets/home/icon_filter.png',
+                        height: 18,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
                   ),
                   const SizedBox(width: 10),
                   Expanded(
@@ -1238,7 +1326,7 @@ class _SearchPageState extends State<SearchPage> {
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
-                children: const [
+                children: [
                   _SearchResultCard(
                     title: 'Glow & Polish Studio',
                     subtitle: 'Downtown Area • Open until 9 PM',
@@ -1247,16 +1335,20 @@ class _SearchPageState extends State<SearchPage> {
                     rating: '4.9',
                     distance: '1.2 km',
                     promoted: true,
+                    onTap: () => Navigator.of(context)
+                        .pushNamed(AppRoutes.salonDetail),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   _SearchResultCard(
                     title: 'Bella Vita Salon',
                     subtitle: 'West Avenue • Open until 8 PM',
                     tags: ['Hair', 'Makeup', 'Home Service'],
                     rating: '4.7',
                     distance: '0.8 km',
+                    onTap: () => Navigator.of(context)
+                        .pushNamed(AppRoutes.salonDetail),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   _SearchResultCard(
                     title: 'Pinky Promise Nails',
                     subtitle: 'Mall District • Closes Soon',
@@ -1264,6 +1356,8 @@ class _SearchPageState extends State<SearchPage> {
                     priceLabel: '\$15.00',
                     rating: '4.5',
                     distance: '2.5 km',
+                    onTap: () => Navigator.of(context)
+                        .pushNamed(AppRoutes.salonDetail),
                   ),
                 ],
               ),
@@ -1273,8 +1367,23 @@ class _SearchPageState extends State<SearchPage> {
       ),
       bottomNavigationBar: _BottomNavBar(
         currentIndex: 1,
-        onTap: (_) => Navigator.of(context)
-            .pushReplacementNamed(AppRoutes.home),
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.of(context)
+                .pushReplacementNamed(AppRoutes.home);
+          } else if (index == 1) {
+            return;
+          } else if (index == 2) {
+            Navigator.of(context)
+                .pushReplacementNamed(AppRoutes.myBookings);
+          } else if (index == 3) {
+            Navigator.of(context)
+                .pushReplacementNamed(AppRoutes.wallet);
+          } else if (index == 4) {
+            Navigator.of(context)
+                .pushReplacementNamed(AppRoutes.profile);
+          }
+        },
       ),
     );
   }
@@ -1428,6 +1537,7 @@ class _SearchResultCard extends StatelessWidget {
     required this.distance,
     this.priceLabel,
     this.promoted = false,
+    this.onTap,
   });
 
   final String title;
@@ -1437,6 +1547,637 @@ class _SearchResultCard extends StatelessWidget {
   final String distance;
   final String? priceLabel;
   final bool promoted;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 10,
+              offset: const Offset(0, 6),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                Container(
+                  height: 160,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFEDE2DC),
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(16),
+                    ),
+                  ),
+                ),
+                if (promoted)
+                  Positioned(
+                    top: 12,
+                    left: 12,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 6),
+                      decoration: BoxDecoration(
+                        color: AppColors.accent,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        'Promoted',
+                        style: GoogleFonts.poppins(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                Positioned(
+                  top: 12,
+                  right: 12,
+                  child: Container(
+                    height: 32,
+                    width: 32,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.white,
+                    ),
+                    child: const Icon(
+                      Icons.favorite_border,
+                      size: 18,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 12,
+                  left: 12,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.6),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      distance,
+                      style: GoogleFonts.poppins(
+                        fontSize: 11,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(14, 12, 14, 14),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          title,
+                          style: GoogleFonts.poppins(
+                            fontSize: 14.5,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.textPrimary,
+                          ),
+                        ),
+                      ),
+                      const Icon(Icons.star, size: 14, color: Colors.amber),
+                      const SizedBox(width: 4),
+                      Text(
+                        rating,
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    subtitle,
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 6,
+                    runSpacing: 6,
+                    children: tags
+                        .map((tag) => Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 5),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFF3E7DF),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Text(
+                                tag,
+                                style: GoogleFonts.poppins(
+                                  fontSize: 11,
+                                  color: AppColors.accent,
+                                ),
+                              ),
+                            ))
+                        .toList(),
+                  ),
+                  if (priceLabel != null) ...[
+                    const SizedBox(height: 8),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        priceLabel!,
+                        style: GoogleFonts.poppins(
+                          fontSize: 12.5,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.textPrimary,
+                        ),
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class FiltersPage extends StatefulWidget {
+  const FiltersPage({super.key});
+
+  @override
+  State<FiltersPage> createState() => _FiltersPageState();
+}
+
+class _FiltersPageState extends State<FiltersPage> {
+  String _service = 'All';
+  String _category = 'All';
+  String _sort = 'Recommended';
+  double _distance = 5;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  Expanded(
+                    child: Text(
+                      'Filters',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 48),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Service Type',
+                style: GoogleFonts.poppins(
+                  fontSize: 13.5,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                children: [
+                  _ChoiceChip(
+                    label: 'All',
+                    selected: _service == 'All',
+                    onTap: () => setState(() => _service = 'All'),
+                  ),
+                  _ChoiceChip(
+                    label: 'Home Service',
+                    selected: _service == 'Home Service',
+                    onTap: () {
+                      setState(() => _service = 'Home Service');
+                      Navigator.of(context).pushNamed(AppRoutes.homeServices);
+                    },
+                  ),
+                  _ChoiceChip(
+                    label: 'In-Salon',
+                    selected: _service == 'In-Salon',
+                    onTap: () {
+                      setState(() => _service = 'In-Salon');
+                      Navigator.of(context).pushNamed(AppRoutes.inSalon);
+                    },
+                  ),
+                  _ChoiceChip(
+                    label: 'Offers & Deals',
+                    selected: _service == 'Offers & Deals',
+                    onTap: () {
+                      setState(() => _service = 'Offers & Deals');
+                      Navigator.of(context).pushNamed(AppRoutes.offersDeals);
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 18),
+              Text(
+                'Categories',
+                style: GoogleFonts.poppins(
+                  fontSize: 13.5,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                children: [
+                  _ChoiceChip(
+                    label: 'All',
+                    selected: _category == 'All',
+                    onTap: () => setState(() => _category = 'All'),
+                  ),
+                  _ChoiceChip(
+                    label: 'Hair',
+                    selected: _category == 'Hair',
+                    onTap: () => setState(() => _category = 'Hair'),
+                  ),
+                  _ChoiceChip(
+                    label: 'Nails',
+                    selected: _category == 'Nails',
+                    onTap: () => setState(() => _category = 'Nails'),
+                  ),
+                  _ChoiceChip(
+                    label: 'Facial',
+                    selected: _category == 'Facial',
+                    onTap: () => setState(() => _category = 'Facial'),
+                  ),
+                  _ChoiceChip(
+                    label: 'Massage',
+                    selected: _category == 'Massage',
+                    onTap: () => setState(() => _category = 'Massage'),
+                  ),
+                  _ChoiceChip(
+                    label: 'Makeup',
+                    selected: _category == 'Makeup',
+                    onTap: () => setState(() => _category = 'Makeup'),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 18),
+              Text(
+                'Sort By',
+                style: GoogleFonts.poppins(
+                  fontSize: 13.5,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Wrap(
+                spacing: 10,
+                runSpacing: 10,
+                children: [
+                  _ChoiceChip(
+                    label: 'Recommended',
+                    selected: _sort == 'Recommended',
+                    onTap: () => setState(() => _sort = 'Recommended'),
+                  ),
+                  _ChoiceChip(
+                    label: 'Top Rated',
+                    selected: _sort == 'Top Rated',
+                    onTap: () => setState(() => _sort = 'Top Rated'),
+                  ),
+                  _ChoiceChip(
+                    label: 'Nearest',
+                    selected: _sort == 'Nearest',
+                    onTap: () => setState(() => _sort = 'Nearest'),
+                  ),
+                  _ChoiceChip(
+                    label: 'Price: Low to High',
+                    selected: _sort == 'Price: Low to High',
+                    onTap: () => setState(() => _sort = 'Price: Low to High'),
+                  ),
+                  _ChoiceChip(
+                    label: 'Price: High to Low',
+                    selected: _sort == 'Price: High to Low',
+                    onTap: () => setState(() => _sort = 'Price: High to Low'),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 18),
+              Text(
+                'Distance',
+                style: GoogleFonts.poppins(
+                  fontSize: 13.5,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+              const SizedBox(height: 8),
+              SliderTheme(
+                data: SliderTheme.of(context).copyWith(
+                  activeTrackColor: AppColors.accent,
+                  inactiveTrackColor: AppColors.border,
+                  thumbColor: Colors.white,
+                  overlayColor: AppColors.accent.withOpacity(0.12),
+                ),
+                child: Slider(
+                  value: _distance,
+                  min: 0,
+                  max: 10,
+                  divisions: 10,
+                  onChanged: (value) => setState(() => _distance = value),
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('0 km',
+                      style: GoogleFonts.poppins(
+                          fontSize: 12, color: AppColors.textSecondary)),
+                  Text('5 km',
+                      style: GoogleFonts.poppins(
+                          fontSize: 12, color: AppColors.textSecondary)),
+                  Text('10 km+',
+                      style: GoogleFonts.poppins(
+                          fontSize: 12, color: AppColors.textSecondary)),
+                ],
+              ),
+              const Spacer(),
+              Row(
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        _service = 'All';
+                        _category = 'All';
+                        _sort = 'Recommended';
+                        _distance = 5;
+                      });
+                    },
+                    child: Text(
+                      'Reset',
+                      style: GoogleFonts.poppins(
+                        fontSize: 13,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _PrimaryButton(
+                      label: 'Show Results',
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ChoiceChip extends StatelessWidget {
+  const _ChoiceChip({
+    required this.label,
+    required this.selected,
+    this.onTap,
+  });
+
+  final String label;
+  final bool selected;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+        decoration: BoxDecoration(
+          color: selected ? AppColors.accentLight : Colors.white,
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(
+            color: selected ? AppColors.accent : Colors.transparent,
+          ),
+        ),
+        child: Text(
+          label,
+          style: GoogleFonts.poppins(
+            fontSize: 12.5,
+            color: selected ? AppColors.accent : AppColors.textSecondary,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class HomeServicesPage extends StatelessWidget {
+  const HomeServicesPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return _ServiceListPage(
+      title: 'Home Services',
+      onFilterTap: () => Navigator.of(context).pushNamed(AppRoutes.filters),
+      cards: const [
+        _ServiceCardData(
+          title: 'Serenity Mobile Spa',
+          rating: '4.9',
+          distance: '1.2 km',
+          status: 'Available Now',
+          tags: ['Massage', 'Facial', 'Manicure'],
+        ),
+        _ServiceCardData(
+          title: 'Glamour at Home',
+          rating: '4.7',
+          distance: '2.5 km',
+          status: 'Next slot: 2 PM',
+          tags: ['Hair Styling', 'Makeup'],
+        ),
+        _ServiceCardData(
+          title: 'Polished Mobile Nails',
+          rating: '4.8',
+          distance: '3.0 km',
+          status: 'Fully Booked Today',
+          tags: ['Nails', 'Pedicure'],
+        ),
+      ],
+    );
+  }
+}
+
+class InSalonPage extends StatelessWidget {
+  const InSalonPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return _ServiceListPage(
+      title: 'In-Salon Service',
+      onFilterTap: () => Navigator.of(context).pushNamed(AppRoutes.filters),
+      cards: const [
+        _ServiceCardData(
+          title: 'Serenity Mobile Spa',
+          rating: '4.9',
+          distance: '1.2 km',
+          status: 'Available Now',
+          tags: ['Massage', 'Facial', 'Manicure'],
+        ),
+        _ServiceCardData(
+          title: 'Glamour at Home',
+          rating: '4.7',
+          distance: '2.5 km',
+          status: 'Next slot: 2 PM',
+          tags: ['Hair Styling', 'Makeup'],
+        ),
+        _ServiceCardData(
+          title: 'Polished Mobile Nails',
+          rating: '4.8',
+          distance: '3.0 km',
+          status: 'Fully Booked Today',
+          tags: ['Nails', 'Pedicure'],
+        ),
+      ],
+    );
+  }
+}
+
+class _ServiceListPage extends StatelessWidget {
+  const _ServiceListPage({
+    required this.title,
+    required this.onFilterTap,
+    required this.cards,
+  });
+
+  final String title;
+  final VoidCallback onFilterTap;
+  final List<_ServiceCardData> cards;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  const SizedBox(width: 4),
+                  Expanded(
+                    child: Text(
+                      title,
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                  ),
+                  IconButton(
+                    icon: Image.asset(
+                      'assets/home/icon_filter.png',
+                      height: 18,
+                      color: AppColors.textSecondary,
+                    ),
+                    onPressed: onFilterTap,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                'Top Rated Near You',
+                style: GoogleFonts.poppins(
+                  fontSize: 14.5,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Expanded(
+              child: ListView.separated(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                itemBuilder: (context, index) =>
+                    _ServiceCard(data: cards[index]),
+                separatorBuilder: (_, __) => const SizedBox(height: 16),
+                itemCount: cards.length,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ServiceCardData {
+  const _ServiceCardData({
+    required this.title,
+    required this.rating,
+    required this.distance,
+    required this.status,
+    required this.tags,
+  });
+
+  final String title;
+  final String rating;
+  final String distance;
+  final String status;
+  final List<String> tags;
+}
+
+class _ServiceCard extends StatelessWidget {
+  const _ServiceCard({required this.data});
+
+  final _ServiceCardData data;
 
   @override
   Widget build(BuildContext context) {
@@ -1455,69 +2196,275 @@ class _SearchResultCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Stack(
-            children: [
-              Container(
-                height: 160,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFEDE2DC),
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(16),
-                  ),
-                ),
-              ),
-              if (promoted)
-                Positioned(
-                  top: 12,
-                  left: 12,
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: AppColors.accent,
-                      borderRadius: BorderRadius.circular(12),
+          Container(
+            height: 150,
+            decoration: const BoxDecoration(
+              color: Color(0xFFE7DED7),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(14, 12, 14, 14),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        data.title,
+                        style: GoogleFonts.poppins(
+                          fontSize: 14.5,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.textPrimary,
+                        ),
+                      ),
                     ),
-                    child: Text(
-                      'Promoted',
+                    const Icon(Icons.star, size: 14, color: Colors.amber),
+                    const SizedBox(width: 4),
+                    Text(
+                      data.rating,
                       style: GoogleFonts.poppins(
-                        fontSize: 11,
+                        fontSize: 12,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 6),
+                Row(
+                  children: [
+                    const Icon(Icons.location_on_outlined,
+                        size: 14, color: AppColors.textSecondary),
+                    const SizedBox(width: 4),
+                    Text(
+                      data.distance,
+                      style: GoogleFonts.poppins(
+                        fontSize: 11.5,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    const Icon(Icons.access_time,
+                        size: 14, color: AppColors.textSecondary),
+                    const SizedBox(width: 4),
+                    Text(
+                      data.status,
+                      style: GoogleFonts.poppins(
+                        fontSize: 11.5,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Wrap(
+                  spacing: 6,
+                  runSpacing: 6,
+                  children: data.tags
+                      .map(
+                        (tag) => Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFF3E7DF),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            tag,
+                            style: GoogleFonts.poppins(
+                              fontSize: 11,
+                              color: AppColors.accent,
+                            ),
+                          ),
+                        ),
+                      )
+                      .toList(),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class OffersDealsPage extends StatelessWidget {
+  const OffersDealsPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  const SizedBox(width: 4),
+                  Expanded(
+                    child: Text(
+                      'Offers & Deals',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                        fontSize: 18,
                         fontWeight: FontWeight.w600,
-                        color: Colors.white,
+                        color: AppColors.textPrimary,
                       ),
                     ),
                   ),
-                ),
-              Positioned(
-                top: 12,
-                right: 12,
-                child: Container(
-                  height: 32,
-                  width: 32,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white,
+                  IconButton(
+                    icon: Image.asset(
+                      'assets/home/icon_filter.png',
+                      height: 18,
+                      color: AppColors.textSecondary,
+                    ),
+                    onPressed: () =>
+                        Navigator.of(context).pushNamed(AppRoutes.filters),
                   ),
-                  child: const Icon(
-                    Icons.favorite_border,
-                    size: 18,
-                    color: AppColors.textSecondary,
-                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 8),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: const [
+                  _ChoiceChip(label: 'All Offers', selected: true, onTap: null),
+                  SizedBox(width: 8),
+                  _ChoiceChip(label: 'Hair', selected: false, onTap: null),
+                  SizedBox(width: 8),
+                  _ChoiceChip(label: 'Nails', selected: false, onTap: null),
+                  SizedBox(width: 8),
+                  _ChoiceChip(label: 'Spa', selected: false, onTap: null),
+                  SizedBox(width: 8),
+                  _ChoiceChip(label: 'Facial', selected: false, onTap: null),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            Expanded(
+              child: ListView.separated(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                itemBuilder: (context, index) {
+                  final card = _offerCards[index];
+                  return _OfferDealCard(data: card);
+                },
+                separatorBuilder: (_, __) => const SizedBox(height: 16),
+                itemCount: _offerCards.length,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+const List<_OfferCardData> _offerCards = [
+  _OfferCardData(
+    badge: '20% OFF',
+    title: 'New Client Special: Full Gel Set &\nPedicure',
+    subtitle:
+        'Valid for first-time customers only. Cannot be\ncombined with other offers.',
+    footer: 'Exp: Oct 31',
+    action: 'Book Now',
+  ),
+  _OfferCardData(
+    badge: '\$15 OFF',
+    title: 'Keratin Smoothing Treatment',
+    subtitle: 'Get \$15 off any keratin treatment over \$100.\nWeekdays only.',
+    footer: 'Exp: Nov 15',
+    action: 'Use Code',
+  ),
+  _OfferCardData(
+    badge: 'FREE GIFT',
+    title: 'Free Scalp Massage with 60min\nFacial',
+    subtitle:
+        'Complimentary 15-min scalp massage add-on\nwith any signature facial.',
+    footer: 'Exp: Dec 01',
+    action: 'Book Now',
+  ),
+  _OfferCardData(
+    badge: '10% OFF',
+    title: 'Student Discount: All Services',
+    subtitle: 'Show your valid student ID to receive 10% off\nany service.',
+    footer: 'Valid Always',
+    action: 'View Salon',
+  ),
+];
+
+class _OfferCardData {
+  const _OfferCardData({
+    required this.badge,
+    required this.title,
+    required this.subtitle,
+    required this.footer,
+    required this.action,
+  });
+
+  final String badge;
+  final String title;
+  final String subtitle;
+  final String footer;
+  final String action;
+}
+
+class _OfferDealCard extends StatelessWidget {
+  const _OfferDealCard({required this.data});
+
+  final _OfferCardData data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 12,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              Container(
+                height: 150,
+                decoration: const BoxDecoration(
+                  color: Color(0xFFE7DED7),
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
                 ),
               ),
               Positioned(
-                bottom: 12,
+                top: 12,
                 left: 12,
                 child: Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.6),
+                    color: AppColors.accent,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
-                    distance,
+                    data.badge,
                     style: GoogleFonts.poppins(
                       fontSize: 11,
+                      fontWeight: FontWeight.w600,
                       color: Colors.white,
                     ),
                   ),
@@ -1532,22 +2479,5975 @@ class _SearchResultCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
+                    const Icon(Icons.location_on_outlined,
+                        size: 14, color: AppColors.textSecondary),
+                    const SizedBox(width: 4),
+                    Text(
+                      'Glow & Polish Studio',
+                      style: GoogleFonts.poppins(
+                        fontSize: 11.5,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  data.title,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  data.subtitle,
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Divider(color: AppColors.border.withOpacity(0.8)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      data.footer,
+                      style: GoogleFonts.poppins(
+                        fontSize: 11.5,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: AppColors.accent,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        data.action,
+                        style: GoogleFonts.poppins(
+                          fontSize: 11.5,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SpecialOfferPage extends StatelessWidget {
+  const SpecialOfferPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  Expanded(
+                    child: Text(
+                      'Special Offer',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 48),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 22),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF9E9E8),
+                  borderRadius: BorderRadius.circular(18),
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      height: 56,
+                      width: 56,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.accent,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Image.asset(
+                          'assets/offers/icon_offer.png',
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+                    Text(
+                      '20% OFF',
+                      style: GoogleFonts.poppins(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.accent,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      'Enjoy a discount on your very\nfirst salon booking with us.',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                        fontSize: 12.5,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 18),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(
+                    color: AppColors.accent,
+                    width: 1,
+                    style: BorderStyle.solid,
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'VOUCHER CODE',
+                            style: GoogleFonts.poppins(
+                              fontSize: 11,
+                              letterSpacing: 1,
+                              color: AppColors.textSecondary,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'BEAUTY20',
+                            style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.textPrimary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      'Copy',
+                      style: GoogleFonts.poppins(
+                        fontSize: 12.5,
+                        color: AppColors.accent,
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    const Icon(Icons.copy, size: 16, color: AppColors.accent),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 18),
+              Text(
+                'How to use',
+                style: GoogleFonts.poppins(
+                  fontSize: 13.5,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+              const SizedBox(height: 10),
+              _StepItem(index: 1, text: 'Copy the code above.'),
+              _StepItem(
+                  index: 2, text: 'Explore salons and select a service.'),
+              _StepItem(
+                  index: 3,
+                  text: 'Paste the code at checkout to apply discount.'),
+              const SizedBox(height: 16),
+              Text(
+                'Terms & Conditions',
+                style: GoogleFonts.poppins(
+                  fontSize: 13.5,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Valid for new users only. Maximum discount\\nvalue of \$20. Cannot be combined with other\\noffers. Valid on all salon services booked through\\nthe app. Expired codes cannot be redeemed.',
+                style: GoogleFonts.poppins(
+                  fontSize: 12,
+                  height: 1.5,
+                  color: AppColors.textSecondary,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _StepItem extends StatelessWidget {
+  const _StepItem({required this.index, required this.text});
+
+  final int index;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 20,
+            width: 20,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: const Color(0xFFF3E7DF),
+              border: Border.all(color: AppColors.border),
+            ),
+            child: Center(
+              child: Text(
+                '$index',
+                style: GoogleFonts.poppins(
+                  fontSize: 11,
+                  color: AppColors.textSecondary,
+                ),
+              ),
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              text,
+              style: GoogleFonts.poppins(
+                fontSize: 12,
+                color: AppColors.textSecondary,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SendGiftPage extends StatelessWidget {
+  const SendGiftPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  Expanded(
+                    child: Text(
+                      'Send a Gift',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 48),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Text(
+                'Surprise them with the perfect\nglow.',
+                style: GoogleFonts.poppins(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+              const SizedBox(height: 6),
+              Text(
+                'Send a spa day, a fresh haircut, or a gift card to\nuse anytime.',
+                style: GoogleFonts.poppins(
+                  fontSize: 12.5,
+                  color: AppColors.textSecondary,
+                ),
+              ),
+              const SizedBox(height: 18),
+              Text(
+                'Choose Gift Type',
+                style: GoogleFonts.poppins(
+                  fontSize: 13.5,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: _GiftTypeCard(
+                      iconAsset: 'assets/gifts/icon_sparkle.png',
+                      title: 'Book a Service',
+                      subtitle: 'Pick a specific salon\n& treatment',
+                      onTap: () => Navigator.of(context)
+                          .pushNamed(AppRoutes.contactAccess),
+                    ),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _GiftTypeCard(
+                      iconAsset: 'assets/gifts/icon_card.png',
+                      title: 'Send Gift Card',
+                      subtitle: 'Add value to their\nwallet',
+                      onTap: () => Navigator.of(context)
+                          .pushNamed(AppRoutes.selectOccasion),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 18),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Have a gift code?',
+                            style: GoogleFonts.poppins(
+                              fontSize: 12.5,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.textPrimary,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Redeem it to your wallet\ninstantly',
+                            style: GoogleFonts.poppins(
+                              fontSize: 11.5,
+                              color: AppColors.textSecondary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF3E7DF),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: GestureDetector(
+                        onTap: () => Navigator.of(context)
+                            .pushNamed(AppRoutes.redeemCode),
+                        child: Text(
+                          'Redeem',
+                          style: GoogleFonts.poppins(
+                            fontSize: 11.5,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.accent,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  Text(
+                    'My Gifts',
+                    style: GoogleFonts.poppins(
+                      fontSize: 13.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const Spacer(),
+                  Text(
+                    'See all',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      color: AppColors.accent,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF3E7DF),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Row(
+                  children: [
+                    Image.asset(
+                      'assets/gifts/icon_gift.png',
+                      height: 18,
+                      color: AppColors.accent,
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      'No gifts sent or received yet.',
+                      style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _GiftTypeCard extends StatelessWidget {
+  const _GiftTypeCard({
+    required this.iconAsset,
+    required this.title,
+    required this.subtitle,
+    required this.onTap,
+  });
+
+  final String iconAsset;
+  final String title;
+  final String subtitle;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(14),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child: Column(
+          children: [
+            Container(
+              height: 44,
+              width: 44,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0xFFF3E7DF),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Image.asset(
+                  iconAsset,
+                  color: AppColors.accent,
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                fontSize: 12.5,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              subtitle,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                fontSize: 11.5,
+                color: AppColors.textSecondary,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ContactAccessPage extends StatelessWidget {
+  const ContactAccessPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Container(
+              color: Colors.black.withOpacity(0.05),
+            ),
+          ),
+          Center(
+            child: Container(
+              margin: const EdgeInsets.symmetric(horizontal: 28),
+              padding: const EdgeInsets.fromLTRB(18, 20, 18, 16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(18),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.08),
+                    blurRadius: 16,
+                    offset: const Offset(0, 10),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    height: 52,
+                    width: 52,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFF3E7DF),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Image.asset(
+                        'assets/gifts/icon_contacts.png',
+                        color: AppColors.accent,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 14),
+                  Text(
+                    'Quickly send beauty gifts to friends\nand family.',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 13.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  _PrimaryButton(
+                    label: 'Allow contacts access',
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  const SizedBox(height: 8),
+                  TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    child: Text(
+                      'Not now',
+                      style: GoogleFonts.poppins(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ContactAccessDialog extends StatelessWidget {
+  const ContactAccessDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      insetPadding: const EdgeInsets.symmetric(horizontal: 28),
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(18, 20, 18, 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 16,
+              offset: const Offset(0, 10),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: 52,
+              width: 52,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0xFFF3E7DF),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Image.asset(
+                  'assets/gifts/icon_contacts.png',
+                  color: AppColors.accent,
+                ),
+              ),
+            ),
+            const SizedBox(height: 14),
+            Text(
+              'Quickly send beauty gifts to friends\nand family.',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                fontSize: 13.5,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 16),
+            _PrimaryButton(
+              label: 'Allow contacts access',
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            const SizedBox(height: 8),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text(
+                'Not now',
+                style: GoogleFonts.poppins(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textSecondary,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SalonDetailPage extends StatelessWidget {
+  const SalonDetailPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: Column(
+        children: [
+          Stack(
+            children: [
+              Container(
+                height: 260,
+                width: double.infinity,
+                color: const Color(0xFFD9D2CC),
+              ),
+              Positioned(
+                top: 42,
+                left: 16,
+                child: _CircleIconButton(
+                  icon: Icons.arrow_back,
+                  onTap: () => Navigator.of(context).pop(),
+                ),
+              ),
+              Positioned(
+                top: 42,
+                right: 64,
+                child: _CircleIconButton(
+                  icon: Icons.share_outlined,
+                  onTap: () {},
+                ),
+              ),
+              Positioned(
+                top: 42,
+                right: 16,
+                child: _CircleIconButton(
+                  icon: Icons.favorite_border,
+                  onTap: () {},
+                ),
+              ),
+            ],
+          ),
+          Expanded(
+            child: Container(
+              transform: Matrix4.translationValues(0, -24, 0),
+              padding: const EdgeInsets.fromLTRB(20, 18, 20, 0),
+              decoration: const BoxDecoration(
+                color: AppColors.background,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'Glow & Polish Studio',
+                          style: GoogleFonts.poppins(
+                            fontSize: 16.5,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.textPrimary,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10, vertical: 6),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFF6E8DF),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.star,
+                                size: 14, color: Colors.amber),
+                            const SizedBox(width: 4),
+                            Text(
+                              '4.9',
+                              style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                color: AppColors.textSecondary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      const Icon(Icons.location_on_outlined,
+                          size: 14, color: AppColors.textSecondary),
+                      const SizedBox(width: 4),
+                      Text(
+                        'Downtown Area (1.2 km)',
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Row(
+                    children: [
+                      Container(
+                        height: 8,
+                        width: 8,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Color(0xFF57C8A4),
+                        ),
+                      ),
+                      const SizedBox(width: 6),
+                      Text(
+                        'Open',
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          color: const Color(0xFF57C8A4),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        '•',
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Closes at 9:00 PM',
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: const [
+                      _TagChip(label: 'Nails'),
+                      _TagChip(label: 'Spa'),
+                      _TagChip(label: 'Skincare'),
+                      _TagChip(label: 'Promoted'),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const _TabLabel(label: 'Services', selected: true),
+                      _TabLabel(
+                        label: 'About',
+                        onTap: () => Navigator.of(context)
+                            .pushNamed(AppRoutes.salonAbout),
+                      ),
+                      _TabLabel(
+                        label: 'Reviews',
+                        onTap: () => Navigator.of(context)
+                            .pushNamed(AppRoutes.salonReviews),
+                      ),
+                      _TabLabel(
+                        label: 'Portfolio',
+                        onTap: () => Navigator.of(context)
+                            .pushNamed(AppRoutes.salonPortfolio),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Expanded(
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      children: const [
+                        _SectionTitle(text: 'Featured Services'),
+                        _ServiceRow(
+                          title: 'Classic Manicure',
+                          subtitle: '45 mins • Popular',
+                          price: '\$26.25',
+                          added: true,
+                        ),
+                        _DividerLine(),
+                        _ServiceRow(
+                          title: 'Gel Polish Removal',
+                          subtitle: '20 mins',
+                          price: '\$15.00',
+                        ),
+                        SizedBox(height: 16),
+                        _SectionTitle(text: 'Spa Treatments'),
+                        _ServiceRow(
+                          title: 'Luxury Pedicure Spa',
+                          subtitle: '60 mins • Massage Included',
+                          price: '\$55.00',
+                        ),
+                        _DividerLine(),
+                        _ServiceRow(
+                          title: 'Hand Mask & Scrub',
+                          subtitle: '30 mins',
+                          price: '\$35.00',
+                        ),
+                        SizedBox(height: 16),
+                        _SectionTitle(text: 'Packages'),
+                        _ServiceRow(
+                          title: 'Mani-Pedi Combo',
+                          subtitle: '90 mins • Save \$10',
+                          price: '\$70.00',
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    '1 Service selected',
+                    style: GoogleFonts.poppins(
+                      fontSize: 11,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '\$26.25',
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: _PrimaryButton(
+                label: 'Book Appointment',
+                onPressed: () {},
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CircleIconButton extends StatelessWidget {
+  const _CircleIconButton({required this.icon, required this.onTap});
+
+  final IconData icon;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 40,
+      width: 40,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: Colors.white.withOpacity(0.85),
+      ),
+      child: IconButton(
+        icon: Icon(icon, size: 18, color: AppColors.textPrimary),
+        onPressed: onTap,
+      ),
+    );
+  }
+}
+
+class _TagChip extends StatelessWidget {
+  const _TagChip({required this.label});
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF3E7DF),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Text(
+        label,
+        style: GoogleFonts.poppins(
+          fontSize: 11,
+          color: AppColors.accent,
+        ),
+      ),
+    );
+  }
+}
+
+class _TabLabel extends StatelessWidget {
+  const _TabLabel({
+    required this.label,
+    this.selected = false,
+    this.onTap,
+  });
+
+  final String label;
+  final bool selected;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Text(
+            label,
+            style: GoogleFonts.poppins(
+              fontSize: 12.5,
+              fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+              color: selected ? AppColors.accent : AppColors.textSecondary,
+            ),
+          ),
+          const SizedBox(height: 6),
+          if (selected)
+            Container(
+              height: 2,
+              width: 48,
+              color: AppColors.accent,
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SectionTitle extends StatelessWidget {
+  const _SectionTitle({required this.text});
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Text(
+        text,
+        style: GoogleFonts.poppins(
+          fontSize: 13.5,
+          fontWeight: FontWeight.w600,
+          color: AppColors.textPrimary,
+        ),
+      ),
+    );
+  }
+}
+
+class _ServiceRow extends StatelessWidget {
+  const _ServiceRow({
+    required this.title,
+    required this.subtitle,
+    required this.price,
+    this.added = false,
+  });
+
+  final String title;
+  final String subtitle;
+  final String price;
+  final bool added;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: GoogleFonts.poppins(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  subtitle,
+                  style: GoogleFonts.poppins(
+                    fontSize: 11.5,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  price,
+                  style: GoogleFonts.poppins(
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+            decoration: BoxDecoration(
+              color: added ? const Color(0xFFF3E7DF) : Colors.white,
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: AppColors.border),
+            ),
+            child: Text(
+              added ? 'Added' : 'Add',
+              style: GoogleFonts.poppins(
+                fontSize: 11.5,
+                fontWeight: FontWeight.w600,
+                color: AppColors.accent,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _DividerLine extends StatelessWidget {
+  const _DividerLine();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Container(
+        height: 1,
+        color: AppColors.border.withOpacity(0.7),
+      ),
+    );
+  }
+}
+
+class SalonAboutPage extends StatelessWidget {
+  const SalonAboutPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: Column(
+        children: [
+          Stack(
+            children: [
+              Container(
+                height: 220,
+                width: double.infinity,
+                color: const Color(0xFFD9D2CC),
+              ),
+              Positioned(
+                top: 42,
+                left: 16,
+                child: _CircleIconButton(
+                  icon: Icons.arrow_back,
+                  onTap: () => Navigator.of(context).pop(),
+                ),
+              ),
+            ],
+          ),
+          Expanded(
+            child: Container(
+              transform: Matrix4.translationValues(0, -22, 0),
+              padding: const EdgeInsets.fromLTRB(20, 18, 20, 0),
+              decoration: const BoxDecoration(
+                color: AppColors.background,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'Glow & Polish Studio',
+                            style: GoogleFonts.poppins(
+                              fontSize: 16.5,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.textPrimary,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFF6E8DF),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.star,
+                                  size: 14, color: Colors.amber),
+                              const SizedBox(width: 4),
+                              Text(
+                                '4.9',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 12,
+                                  color: AppColors.textSecondary,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        const Icon(Icons.location_on_outlined,
+                            size: 14, color: AppColors.textSecondary),
+                        const SizedBox(width: 4),
+                        Text(
+                          'Downtown Area (1.2 km)',
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 6),
+                    Row(
+                      children: [
+                        Container(
+                          height: 8,
+                          width: 8,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0xFF57C8A4),
+                          ),
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          'Open',
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            color: const Color(0xFF57C8A4),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          '•',
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Closes at 9:00 PM',
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: const [
+                        _TagChip(label: 'Nails'),
+                        _TagChip(label: 'Spa'),
+                        _TagChip(label: 'Skincare'),
+                        _TagChip(label: 'Promoted'),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        _TabLabel(
+                          label: 'Services',
+                          onTap: () => Navigator.of(context)
+                              .pushNamed(AppRoutes.salonDetail),
+                        ),
+                        const _TabLabel(label: 'About', selected: true),
+                        _TabLabel(
+                          label: 'Reviews',
+                          onTap: () => Navigator.of(context)
+                              .pushNamed(AppRoutes.salonReviews),
+                        ),
+                        _TabLabel(
+                          label: 'Portfolio',
+                          onTap: () => Navigator.of(context)
+                              .pushNamed(AppRoutes.salonPortfolio),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      'About Us',
+                      style: GoogleFonts.poppins(
+                        fontSize: 13.5,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Welcome to Glow & Polish Studio, where luxury\nmeets relaxation. Our expert team is dedicated\nto providing top-tier nail care, spa treatments,\nand skincare services in a serene environment.\nWe use only premium products to ensure the\nbest results for our clients.',
+                      style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        height: 1.5,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                    const SizedBox(height: 18),
+                    Text(
+                      'Location & Contact',
+                      style: GoogleFonts.poppins(
+                        fontSize: 13.5,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Container(
+                      height: 140,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFE7DED7),
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            '123 Fashion Avenue, Downtown\nDistrict, City Center',
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              color: AppColors.textSecondary,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          '1.2 km away',
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 14),
+                    Row(
+                      children: [
+                        const Icon(Icons.call, size: 16, color: AppColors.accent),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Call Now',
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                        const Spacer(),
+                        const Icon(Icons.public,
+                            size: 16, color: AppColors.accent),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Website',
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 18),
+                    Text(
+                      'Opening Hours',
+                      style: GoogleFonts.poppins(
+                        fontSize: 13.5,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    _HoursRow(day: 'Monday - Friday', time: '9:00 AM - 9:00 PM'),
+                    _HoursRow(day: 'Saturday', time: '10:00 AM - 8:00 PM'),
+                    _HoursRow(day: 'Sunday', time: '10:00 AM - 6:00 PM'),
+                    const SizedBox(height: 18),
+                    Text(
+                      'Amenities',
+                      style: GoogleFonts.poppins(
+                        fontSize: 13.5,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: const [
+                        _AmenityItem(label: 'Free Wi-Fi', icon: Icons.wifi),
+                        SizedBox(width: 18),
+                        _AmenityItem(
+                            label: 'Coffee & Tea', icon: Icons.coffee),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    Row(
+                      children: const [
+                        _AmenityItem(
+                            label: 'Free Parking', icon: Icons.local_parking),
+                        SizedBox(width: 18),
+                        _AmenityItem(
+                            label: 'Card Payment', icon: Icons.credit_card),
+                      ],
+                    ),
+                    const SizedBox(height: 18),
+                    _PrimaryButton(
+                      label: 'Book Appointment',
+                      onPressed: () {},
+                    ),
+                    const SizedBox(height: 10),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _HoursRow extends StatelessWidget {
+  const _HoursRow({required this.day, required this.time});
+
+  final String day;
+  final String time;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(
+              day,
+              style: GoogleFonts.poppins(
+                fontSize: 12,
+                color: AppColors.textPrimary,
+              ),
+            ),
+          ),
+          Text(
+            time,
+            style: GoogleFonts.poppins(
+              fontSize: 12,
+              color: AppColors.textSecondary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _AmenityItem extends StatelessWidget {
+  const _AmenityItem({required this.label, required this.icon});
+
+  final String label;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(icon, size: 16, color: AppColors.accent),
+        const SizedBox(width: 6),
+        Text(
+          label,
+          style: GoogleFonts.poppins(
+            fontSize: 12,
+            color: AppColors.textSecondary,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class SalonReviewsPage extends StatelessWidget {
+  const SalonReviewsPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                Expanded(
+                  child: Text(
+                    'Reviews',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 48),
+              ],
+            ),
+            const Divider(height: 1, color: AppColors.border),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 16, 20, 10),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        '4.9',
+                        style: GoogleFonts.poppins(
+                          fontSize: 34,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.textPrimary,
+                        ),
+                      ),
+                      Row(
+                        children: List.generate(
+                          5,
+                          (index) => const Icon(Icons.star,
+                              size: 14, color: Colors.pinkAccent),
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        '128 reviews',
+                        style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          color: AppColors.textSecondary,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: Column(
+                      children: const [
+                        _RatingBarRow(label: '5', value: 0.9),
+                        _RatingBarRow(label: '4', value: 0.6),
+                        _RatingBarRow(label: '3', value: 0.2),
+                        _RatingBarRow(label: '2', value: 0.1),
+                        _RatingBarRow(label: '1', value: 0.05),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Divider(height: 1, color: AppColors.border),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: const [
+                    _FilterChip(label: 'All Reviews', selected: true),
+                    SizedBox(width: 8),
+                    _FilterChip(label: 'With Photos'),
+                    SizedBox(width: 8),
+                    _FilterChip(label: 'Latest'),
+                    SizedBox(width: 8),
+                    _FilterChip(label: 'Lowest'),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                children: const [
+                  _ReviewCard(
+                    name: 'Sarah J.',
+                    time: '2 days ago',
+                    rating: '5.0',
+                    text:
+                        'Absolutely loved the gel manicure! The staff was\nsuper friendly and the place is so aesthetic. Highly\nrecommend for a relaxing afternoon.',
+                    service: 'Service: Gel Manicure & Pedicure',
+                    hasPhotos: true,
+                  ),
+                  _ReviewCard(
+                    name: 'Emily R.',
+                    time: '1 week ago',
+                    rating: '4.8',
+                    text:
+                        'Great service but I had to wait about 10 mins past\nmy appointment time. Otherwise, the results were\nfantastic.',
+                    service: 'Service: Hair Spa Treatment',
+                  ),
+                  _ReviewCard(
+                    name: 'Jessica M.',
+                    time: '2 weeks ago',
+                    rating: '5.0',
+                    text:
+                        'Best facial I’ve ever had! My skin feels glowing.\nThe therapist was very knowledgeable about skin\ntypes.',
+                    service: 'Service: Hydrating Facial',
+                  ),
+                  _ReviewCard(
+                    name: 'Monica L.',
+                    time: '3 weeks ago',
+                    rating: '5.0',
+                    text:
+                        'Clean, professional, and very reasonably priced\nfor the area. Will definitely be coming back next\nmonth.',
+                    service: 'Service: Classic Manicure',
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _RatingBarRow extends StatelessWidget {
+  const _RatingBarRow({required this.label, required this.value});
+
+  final String label;
+  final double value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 3),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 16,
+            child: Text(
+              label,
+              style: GoogleFonts.poppins(
+                fontSize: 11,
+                color: AppColors.textSecondary,
+              ),
+            ),
+          ),
+          const SizedBox(width: 6),
+          Expanded(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: LinearProgressIndicator(
+                value: value,
+                minHeight: 6,
+                backgroundColor: AppColors.border,
+                valueColor:
+                    const AlwaysStoppedAnimation<Color>(AppColors.accent),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ReviewCard extends StatelessWidget {
+  const _ReviewCard({
+    required this.name,
+    required this.time,
+    required this.rating,
+    required this.text,
+    required this.service,
+    this.hasPhotos = false,
+  });
+
+  final String name;
+  final String time;
+  final String rating;
+  final String text;
+  final String service;
+  final bool hasPhotos;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                height: 36,
+                width: 36,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color(0xFFE7DED7),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: GoogleFonts.poppins(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                    Text(
+                      time,
+                      style: GoogleFonts.poppins(
+                        fontSize: 11,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Text(
+                rating,
+                style: GoogleFonts.poppins(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+              const SizedBox(width: 4),
+              const Icon(Icons.star, size: 12, color: Colors.pinkAccent),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Text(
+            text,
+            style: GoogleFonts.poppins(
+              fontSize: 12,
+              height: 1.5,
+              color: AppColors.textSecondary,
+            ),
+          ),
+          if (hasPhotos) ...[
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                Container(
+                  height: 54,
+                  width: 70,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE7DED7),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Container(
+                  height: 54,
+                  width: 70,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFE7DED7),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ],
+            ),
+          ],
+          const SizedBox(height: 8),
+          Text(
+            service,
+            style: GoogleFonts.poppins(
+              fontSize: 11,
+              color: AppColors.textSecondary,
+            ),
+          ),
+          const SizedBox(height: 12),
+          const Divider(height: 1, color: AppColors.border),
+        ],
+      ),
+    );
+  }
+}
+
+class SalonPortfolioPage extends StatelessWidget {
+  const SalonPortfolioPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                Expanded(
+                  child: Text(
+                    'Portfolio',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 48),
+              ],
+            ),
+            const Divider(height: 1, color: AppColors.border),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: const [
+                    _FilterChip(label: 'All Works', selected: true),
+                    SizedBox(width: 8),
+                    _FilterChip(label: 'Nails'),
+                    SizedBox(width: 8),
+                    _FilterChip(label: 'Hair Styling'),
+                    SizedBox(width: 8),
+                    _FilterChip(label: 'Makeup'),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+              child: GridView.builder(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 12,
+                  crossAxisSpacing: 12,
+                  childAspectRatio: 0.78,
+                ),
+                itemCount: 8,
+                itemBuilder: (context, index) {
+                  final labels = [
+                    'Abstract Gel Art',
+                    'Blonde Balayage',
+                    'Soft Glam Look',
+                    'Bridal Updo',
+                    'Classic Red',
+                    'Textured Waves',
+                    'Pink Acrylics',
+                    'Hydra Facial',
+                  ];
+                  return InkWell(
+                    onTap: () => Navigator.of(context)
+                        .pushNamed(AppRoutes.portfolioDetail),
+                    borderRadius: BorderRadius.circular(14),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFE7DED7),
+                              borderRadius: BorderRadius.circular(14),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          labels[index],
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            color: AppColors.textPrimary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PortfolioDetailPage extends StatelessWidget {
+  const PortfolioDetailPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: Column(
+        children: [
+          Stack(
+            children: [
+              Container(
+                height: 320,
+                width: double.infinity,
+                color: const Color(0xFFD9D2CC),
+              ),
+              Positioned(
+                top: 48,
+                left: 16,
+                child: _CircleIconButton(
+                  icon: Icons.arrow_back,
+                  onTap: () => Navigator.of(context).pop(),
+                ),
+              ),
+              Positioned(
+                top: 48,
+                right: 16,
+                child: _CircleIconButton(
+                  icon: Icons.share_outlined,
+                  onTap: () {},
+                ),
+              ),
+            ],
+          ),
+          Expanded(
+            child: Container(
+              transform: Matrix4.translationValues(0, -24, 0),
+              padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
+              decoration: const BoxDecoration(
+                color: AppColors.background,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            'Abstract Gel Art',
+                            style: GoogleFonts.poppins(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.textPrimary,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          r'$45',
+                          style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.accent,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Nails • 60 min',
+                      style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    const Divider(height: 1, color: AppColors.border),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        Container(
+                          height: 40,
+                          width: 40,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0xFFE7DED7),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Created by Sarah',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 12.5,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.textPrimary,
+                                ),
+                              ),
+                              Text(
+                                'Senior Nail Technician',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 11.5,
+                                  color: AppColors.textSecondary,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const Icon(Icons.chevron_right,
+                            color: AppColors.textSecondary),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      'A unique, hand-painted abstract design using\npremium gel polish. Includes cuticle care,\nshaping, and a hydrating hand massage.\nCustomize colors to match your style.',
+                      style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        height: 1.5,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: const [
+                        _TagChip(label: '#NailArt'),
+                        _TagChip(label: '#GelManicure'),
+                        _TagChip(label: '#Abstract'),
+                        _TagChip(label: '#Trendy'),
+                      ],
+                    ),
+                    const SizedBox(height: 18),
+                    Row(
+                      children: [
+                        Text(
+                          'Gallery',
+                          style: GoogleFonts.poppins(
+                            fontSize: 13.5,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.textPrimary,
+                          ),
+                        ),
+                        const Spacer(),
+                        Text(
+                          '6 looks',
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    GridView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 8,
+                        crossAxisSpacing: 8,
+                        childAspectRatio: 1.1,
+                      ),
+                      itemCount: 6,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFE7DED7),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        );
+                      },
+                    ),
+                    const SizedBox(height: 18),
+                    _PrimaryButton(
+                      label: 'Book This Look',
+                      onPressed: () => Navigator.of(context)
+                          .pushNamed(AppRoutes.booking),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class BookingPage extends StatefulWidget {
+  const BookingPage({super.key});
+
+  @override
+  State<BookingPage> createState() => _BookingPageState();
+}
+
+class _BookingPageState extends State<BookingPage> {
+  int _selectedDay = 1;
+  int _selectedSlot = 3;
+  bool _bookForMe = true;
+  int _selectedStaff = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                Expanded(
+                  child: Text(
+                    'Select Date & Time',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 48),
+              ],
+            ),
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.fromLTRB(20, 8, 20, 12),
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        'Selected Services',
+                        style: GoogleFonts.poppins(
+                          fontSize: 13.5,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.textPrimary,
+                        ),
+                      ),
+                      const Spacer(),
+                      Text(
+                        '+ Add Service',
+                        style: GoogleFonts.poppins(
+                          fontSize: 12.5,
+                          color: AppColors.accent,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 14, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Classic Manicure',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.textPrimary,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                '45 mins • Gel Polish',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 11.5,
+                                  color: AppColors.textSecondary,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Text(
+                          '\$26.25',
+                          style: GoogleFonts.poppins(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.textPrimary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Text(
+                        'October 2023',
+                        style: GoogleFonts.poppins(
+                          fontSize: 13.5,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.textPrimary,
+                        ),
+                      ),
+                      const Spacer(),
+                      const Icon(Icons.chevron_right,
+                          size: 20, color: AppColors.textSecondary),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    children: List.generate(5, (index) {
+                      final labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+                      final dates = ['23', '24', '25', '26', '27'];
+                      final selected = index == _selectedDay;
+                      return Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(right: index == 4 ? 0 : 8),
+                          child: GestureDetector(
+                            onTap: () => setState(() => _selectedDay = index),
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              decoration: BoxDecoration(
+                                color: selected
+                                    ? AppColors.accent
+                                    : Colors.white,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Column(
+                                children: [
+                                  Text(
+                                    labels[index],
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 11,
+                                      color: selected
+                                          ? Colors.white
+                                          : AppColors.textSecondary,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    dates[index],
+                                    style: GoogleFonts.poppins(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: selected
+                                          ? Colors.white
+                                          : AppColors.textPrimary,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Available Slots',
+                    style: GoogleFonts.poppins(
+                      fontSize: 13.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Wrap(
+                    spacing: 10,
+                    runSpacing: 10,
+                    children: List.generate(9, (index) {
+                      final labels = [
+                        '09:00 AM',
+                        '09:30 AM',
+                        '10:00 AM',
+                        '10:30 AM',
+                        '11:00 AM',
+                        '11:30 AM',
+                        '01:00 PM',
+                        '01:30 PM',
+                        '02:00 PM',
+                      ];
+                      final disabled = index == 0 || index == 1;
+                      final selected = index == _selectedSlot;
+                      return GestureDetector(
+                        onTap: disabled
+                            ? null
+                            : () => setState(() => _selectedSlot = index),
+                        child: Container(
+                          width: 92,
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          decoration: BoxDecoration(
+                            color: selected
+                                ? const Color(0xFFF6E8DF)
+                                : Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: selected
+                                  ? AppColors.accent
+                                  : AppColors.border,
+                            ),
+                          ),
+                          child: Center(
+                            child: Text(
+                              labels[index],
+                              style: GoogleFonts.poppins(
+                                fontSize: 12,
+                                color: disabled
+                                    ? AppColors.border
+                                    : AppColors.textPrimary,
+                                decoration: disabled
+                                    ? TextDecoration.lineThrough
+                                    : TextDecoration.none,
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+                  ),
+                  const SizedBox(height: 18),
+                  Text(
+                    'Choose Professional',
+                    style: GoogleFonts.poppins(
+                      fontSize: 13.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: List.generate(4, (index) {
+                      final names = ['Any Staff', 'Sarah', 'Mike', 'Emma'];
+                      final selected = index == _selectedStaff;
+                      return GestureDetector(
+                        onTap: () => setState(() => _selectedStaff = index),
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 52,
+                              width: 52,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: selected
+                                    ? const Color(0xFFF6E8DF)
+                                    : const Color(0xFFE7DED7),
+                                border: Border.all(
+                                  color: selected
+                                      ? AppColors.accent
+                                      : Colors.transparent,
+                                ),
+                              ),
+                              child: index == 0
+                                  ? const Icon(Icons.person_outline,
+                                      color: AppColors.accent)
+                                  : const SizedBox.shrink(),
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              names[index],
+                              style: GoogleFonts.poppins(
+                                fontSize: 11.5,
+                                color: AppColors.textSecondary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
+                  ),
+                  const SizedBox(height: 18),
+                  Text(
+                    'Recipient',
+                    style: GoogleFonts.poppins(
+                      fontSize: 13.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          'This booking is for me.',
+                          style: GoogleFonts.poppins(
+                            fontSize: 12.5,
+                            color: AppColors.textPrimary,
+                          ),
+                        ),
+                      ),
+                      Switch(
+                        value: _bookForMe,
+                        activeColor: AppColors.accent,
+                        onChanged: (value) {
+                          setState(() => _bookForMe = value);
+                          if (!value) {
+                            showDialog<void>(
+                              context: context,
+                              barrierDismissible: true,
+                              builder: (_) => const ContactAccessDialog(),
+                            );
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                  Text(
+                    'Turn off to book for someone else.',
+                    style: GoogleFonts.poppins(
+                      fontSize: 11.5,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    'Recipient contact details',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: const [
+                      Expanded(
+                        child: _ChoiceChip(
+                          label: 'Phone',
+                          selected: true,
+                        ),
+                      ),
+                      SizedBox(width: 10),
+                      Expanded(
+                        child: _ChoiceChip(label: 'Email'),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  const _TextFieldBox(
+                    hintText: 'Enter recipient phone number',
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'We will send the booking details and reminders to this\ncontact.',
+                    style: GoogleFonts.poppins(
+                      fontSize: 11.5,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          'Tue, 24 Oct • 10:30 AM',
+                          style: GoogleFonts.poppins(
+                            fontSize: 11.5,
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          '\$26.25',
+                          style: GoogleFonts.poppins(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.textPrimary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: _PrimaryButton(
+                      label: 'Continue',
+                      onPressed: () => Navigator.of(context)
+                          .pushNamed(AppRoutes.reviewBooking),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ReviewBookingPage extends StatelessWidget {
+  const ReviewBookingPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                Expanded(
+                  child: Text(
+                    'Review Booking',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 48),
+              ],
+            ),
+            const Divider(height: 1, color: AppColors.border),
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.fromLTRB(20, 16, 20, 12),
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(14),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: AppColors.border),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 46,
+                          width: 46,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFE7DED7),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Glow & Polish Studio',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.textPrimary,
+                                ),
+                              ),
+                              Text(
+                                'Downtown Area',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 11.5,
+                                  color: AppColors.textSecondary,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              _InfoRow(
+                                icon: Icons.calendar_today_outlined,
+                                text: 'Tue, 24 Oct • 10:30 AM',
+                              ),
+                              const SizedBox(height: 6),
+                              _InfoRow(
+                                icon: Icons.spa_outlined,
+                                text: 'Classic Manicure • 45 min',
+                              ),
+                              const SizedBox(height: 6),
+                              _InfoRow(
+                                icon: Icons.person_outline,
+                                text: 'Staff: Sarah',
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 18),
+                  Text(
+                    'Booking For',
+                    style: GoogleFonts.poppins(
+                      fontSize: 13.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 14, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: AppColors.border),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          height: 32,
+                          width: 32,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0xFFF3E7DF),
+                          ),
+                          child: const Icon(Icons.person_outline,
+                              color: AppColors.accent, size: 18),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            'Me (Default)',
+                            style: GoogleFonts.poppins(
+                              fontSize: 12.5,
+                              color: AppColors.textPrimary,
+                            ),
+                          ),
+                        ),
+                        Text(
+                          'Change',
+                          style: GoogleFonts.poppins(
+                            fontSize: 12,
+                            color: AppColors.accent,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 18),
+                  Text(
+                    'Notes',
+                    style: GoogleFonts.poppins(
+                      fontSize: 13.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  TextField(
+                    maxLines: 3,
+                    decoration: InputDecoration(
+                      hintText: 'Any special requests for the salon?',
+                      hintStyle: GoogleFonts.poppins(
+                        fontSize: 12.5,
+                        color: AppColors.textSecondary,
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: const EdgeInsets.all(14),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(14),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 18),
+                  Text(
+                    'Payment Method',
+                    style: GoogleFonts.poppins(
+                      fontSize: 13.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: AppColors.border),
+                    ),
+                    child: Column(
+                      children: [
+                        _PaymentRow(
+                          icon: Icons.credit_card,
+                          label: 'Visa ending in 4242',
+                          selected: true,
+                        ),
+                        const Divider(height: 1, color: AppColors.border),
+                        _PaymentRow(
+                          icon: Icons.account_balance_wallet_outlined,
+                          label: 'Wallet (\$0.00)',
+                          trailing: 'Top up',
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 18),
+                  Text(
+                    'Payment Summary',
+                    style: GoogleFonts.poppins(
+                      fontSize: 13.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding: const EdgeInsets.all(14),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: AppColors.border),
+                    ),
+                    child: Column(
+                      children: [
+                        _SummaryRow(label: 'Service Total', value: '\$25.00'),
+                        const SizedBox(height: 6),
+                        _SummaryRow(label: 'Taxes & Fees', value: '\$1.25'),
+                        const Divider(height: 16, color: AppColors.border),
+                        _SummaryRow(
+                          label: 'Total Amount',
+                          value: '\$26.25',
+                          bold: true,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              ),
+              child: Column(
+                children: [
+                  _PrimaryButton(
+                    label: 'Confirm & Pay \$26.25  →',
+                    onPressed: () => Navigator.of(context)
+                        .pushNamed(AppRoutes.bookingRecipient),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    'By confirming, you agree to the booking terms and cancellation\npolicy of Glow & Polish Studio.',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 10.5,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _InfoRow extends StatelessWidget {
+  const _InfoRow({required this.icon, required this.text});
+
+  final IconData icon;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(icon, size: 14, color: AppColors.textSecondary),
+        const SizedBox(width: 6),
+        Text(
+          text,
+          style: GoogleFonts.poppins(
+            fontSize: 11.5,
+            color: AppColors.textSecondary,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _PaymentRow extends StatelessWidget {
+  const _PaymentRow({
+    required this.icon,
+    required this.label,
+    this.selected = false,
+    this.trailing,
+  });
+
+  final IconData icon;
+  final String label;
+  final bool selected;
+  final String? trailing;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+      child: Row(
+        children: [
+          Icon(icon, size: 18, color: AppColors.textSecondary),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              label,
+              style: GoogleFonts.poppins(
+                fontSize: 12.5,
+                color: AppColors.textPrimary,
+              ),
+            ),
+          ),
+          if (trailing != null)
+            Text(
+              trailing!,
+              style: GoogleFonts.poppins(
+                fontSize: 12,
+                color: AppColors.accent,
+              ),
+            ),
+          if (selected)
+            const Icon(Icons.check_circle,
+                size: 18, color: AppColors.accent),
+        ],
+      ),
+    );
+  }
+}
+
+class _SummaryRow extends StatelessWidget {
+  const _SummaryRow({
+    required this.label,
+    required this.value,
+    this.bold = false,
+  });
+
+  final String label;
+  final String value;
+  final bool bold;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: Text(
+            label,
+            style: GoogleFonts.poppins(
+              fontSize: bold ? 13 : 12.5,
+              fontWeight: bold ? FontWeight.w600 : FontWeight.w500,
+              color: AppColors.textPrimary,
+            ),
+          ),
+        ),
+        Text(
+          value,
+          style: GoogleFonts.poppins(
+            fontSize: bold ? 13 : 12.5,
+            fontWeight: bold ? FontWeight.w600 : FontWeight.w500,
+            color: AppColors.textPrimary,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class BookingRecipientPage extends StatefulWidget {
+  const BookingRecipientPage({super.key});
+
+  @override
+  State<BookingRecipientPage> createState() => _BookingRecipientPageState();
+}
+
+class _BookingRecipientPageState extends State<BookingRecipientPage> {
+  bool _forMe = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                Expanded(
+                  child: Text(
+                    'Booking Recipient',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 48),
+              ],
+            ),
+            const Divider(height: 1, color: AppColors.border),
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.fromLTRB(20, 16, 20, 12),
+                children: [
+                  Text(
+                    'Who is this appointment for?',
+                    style: GoogleFonts.poppins(
+                      fontSize: 13.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 14, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: AppColors.border),
+                    ),
+                    child: Column(
+                      children: [
+                        _RecipientOption(
+                          title: 'Myself',
+                          subtitle: 'Use my profile details',
+                          selected: _forMe,
+                          onTap: () => setState(() => _forMe = true),
+                          icon: Icons.person_outline,
+                        ),
+                        const Divider(height: 1, color: AppColors.border),
+                        _RecipientOption(
+                          title: 'Someone else',
+                          subtitle: 'Enter their details',
+                          selected: !_forMe,
+                          onTap: () => setState(() => _forMe = false),
+                          icon: Icons.card_giftcard_outlined,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 18),
+                  Text(
+                    'Guest Details',
+                    style: GoogleFonts.poppins(
+                      fontSize: 13.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'First Name',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  const _TextFieldBox(hintText: 'e.g. Alice'),
+                  const SizedBox(height: 12),
+                  Text(
+                    'Last Name',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  const _TextFieldBox(hintText: 'e.g. Smith'),
+                  const SizedBox(height: 12),
+                  Text(
+                    'Phone Number',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  const _TextFieldBox(hintText: 'e.g. +1 234 567 8900'),
+                  const SizedBox(height: 12),
+                  Text(
+                    'Email (Optional)',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  const _TextFieldBox(hintText: 'e.g. alice@example.com'),
+                  const SizedBox(height: 10),
+                  Text(
+                    'We will send the booking confirmation and reminders to\nthis email.',
+                    style: GoogleFonts.poppins(
+                      fontSize: 11,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(20, 12, 20, 16),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+              ),
+              child: _PrimaryButton(
+                label: 'Save Changes',
+                onPressed: () => Navigator.of(context)
+                    .pushNamed(AppRoutes.bookingConfirmed),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _RecipientOption extends StatelessWidget {
+  const _RecipientOption({
+    required this.title,
+    required this.subtitle,
+    required this.selected,
+    required this.onTap,
+    required this.icon,
+  });
+
+  final String title;
+  final String subtitle;
+  final bool selected;
+  final VoidCallback onTap;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Row(
+          children: [
+            Container(
+              height: 36,
+              width: 36,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0xFFF3E7DF),
+              ),
+              child: Icon(icon, color: AppColors.accent, size: 18),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: GoogleFonts.poppins(
+                      fontSize: 12.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  Text(
+                    subtitle,
+                    style: GoogleFonts.poppins(
+                      fontSize: 11.5,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: 18,
+              width: 18,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(color: AppColors.border),
+                color: selected ? AppColors.accent : Colors.white,
+              ),
+              child: selected
+                  ? Center(
+                      child: Container(
+                        height: 6,
+                        width: 6,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                        ),
+                      ),
+                    )
+                  : null,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BookingConfirmedPage extends StatelessWidget {
+  const BookingConfirmedPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+            child: Column(
+              children: [
+                Container(
+                  height: 72,
+                  width: 72,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xFF3CB371),
+                  ),
+                  child: const Icon(Icons.check, color: Colors.white, size: 34),
+                ),
+                const SizedBox(height: 18),
+                Text(
+                  'Booking Confirmed!',
+                  style: GoogleFonts.poppins(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Your appointment has been successfully\nscheduled. We\\'ve sent a receipt to your email.',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+                    fontSize: 12.5,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+                const SizedBox(height: 18),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: AppColors.border),
+                  ),
+                  child: Column(
+                    children: [
+                      _SummaryLine(
+                        label: 'Salon',
+                        value: 'Glow & Polish Studio',
+                      ),
+                      _SummaryLine(
+                        label: 'Service',
+                        value: 'Classic Manicure',
+                      ),
+                      const Divider(height: 20, color: AppColors.border),
+                      _SummaryLine(
+                        label: 'Date',
+                        value: 'Oct 24, 2023',
+                      ),
+                      _SummaryLine(
+                        label: 'Time',
+                        value: '10:00 AM',
+                      ),
+                      const Divider(height: 20, color: AppColors.border),
+                      _SummaryLine(
+                        label: 'Total Paid',
+                        value: '\$26.25',
+                        valueColor: AppColors.accent,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 18),
+                _PrimaryButton(
+                  label: 'Add to Calendar',
+                  onPressed: () => Navigator.of(context)
+                      .pushNamed(AppRoutes.addedToCalendar),
+                ),
+                const SizedBox(height: 12),
+                OutlinedButton(
+                  onPressed: () => Navigator.of(context)
+                      .pushNamed(AppRoutes.myBookings),
+                  style: OutlinedButton.styleFrom(
+                    side: const BorderSide(color: AppColors.accent),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    minimumSize: const Size(double.infinity, 52),
+                  ),
+                  child: Text(
+                    'View My Bookings',
+                    style: GoogleFonts.poppins(
+                      fontSize: 14.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.accent,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                TextButton(
+                  onPressed: () => Navigator.of(context)
+                      .pushNamedAndRemoveUntil(AppRoutes.home, (_) => false),
+                  child: Text(
+                    'Back to Home',
+                    style: GoogleFonts.poppins(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _SummaryLine extends StatelessWidget {
+  const _SummaryLine({
+    required this.label,
+    required this.value,
+    this.valueColor,
+  });
+
+  final String label;
+  final String value;
+  final Color? valueColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Row(
+        children: [
+          Text(
+            label,
+            style: GoogleFonts.poppins(
+              fontSize: 12.5,
+              color: AppColors.textSecondary,
+            ),
+          ),
+          const Spacer(),
+          Text(
+            value,
+            style: GoogleFonts.poppins(
+              fontSize: 12.5,
+              fontWeight: FontWeight.w600,
+              color: valueColor ?? AppColors.textPrimary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AddedToCalendarPage extends StatelessWidget {
+  const AddedToCalendarPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+            child: Column(
+              children: [
+                Container(
+                  height: 64,
+                  width: 64,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xFFF3E7DF),
+                  ),
+                  child: const Icon(Icons.calendar_today,
+                      color: AppColors.accent, size: 28),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'This appointment has been\nsuccessfully added to your device\ncalendar. We\\'ll remind you 2 hours\nbefore.',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+                    fontSize: 12.5,
+                    color: AppColors.textSecondary,
+                    height: 1.5,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Text(
+                  'Added to Calendar',
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 14),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 14, vertical: 12),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: AppColors.border),
+                  ),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 48,
+                        width: 48,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFF3E7DF),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'OCT',
+                              style: GoogleFonts.poppins(
+                                fontSize: 10,
+                                color: AppColors.textSecondary,
+                              ),
+                            ),
+                            Text(
+                              '14',
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: AppColors.textPrimary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Glow & Polish Studio',
+                            style: GoogleFonts.poppins(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.textPrimary,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            '10:00 AM - 11:00 AM',
+                            style: GoogleFonts.poppins(
+                              fontSize: 11.5,
+                              color: AppColors.textSecondary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 18),
+                _PrimaryButton(
+                  label: 'Done',
+                  onPressed: () => Navigator.of(context)
+                      .pushNamedAndRemoveUntil(AppRoutes.home, (_) => false),
+                ),
+                const SizedBox(height: 12),
+                TextButton(
+                  onPressed: () =>
+                      Navigator.of(context).pushNamed(AppRoutes.calendarView),
+                  child: Text(
+                    'Open Calendar',
+                    style: GoogleFonts.poppins(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CalendarViewPage extends StatelessWidget {
+  const CalendarViewPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                Expanded(
+                  child: Text(
+                    'October 2024',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.calendar_today),
+                  onPressed: () {},
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Row(
+                children: List.generate(6, (index) {
+                  final days = ['Sat', 'Sun', 'Mon', 'Tue', 'Wed', 'Thu'];
+                  final dates = ['12', '13', '14', '15', '16', '17'];
+                  final selected = index == 2;
+                  return Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(right: index == 5 ? 0 : 6),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        decoration: BoxDecoration(
+                          color: selected
+                              ? AppColors.accent
+                              : Colors.white,
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(color: AppColors.border),
+                        ),
+                        child: Column(
+                          children: [
+                            Text(
+                              days[index],
+                              style: GoogleFonts.poppins(
+                                fontSize: 11,
+                                color: selected
+                                    ? Colors.white
+                                    : AppColors.textSecondary,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              dates[index],
+                              style: GoogleFonts.poppins(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: selected
+                                    ? Colors.white
+                                    : AppColors.textPrimary,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Expanded(
+              child: Stack(
+                children: [
+                  ListView.builder(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                    itemCount: 7,
+                    itemBuilder: (context, index) {
+                      final hours = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00'];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 52,
+                              child: Text(
+                                hours[index],
+                                style: GoogleFonts.poppins(
+                                  fontSize: 11.5,
+                                  color: AppColors.textSecondary,
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: Container(
+                                height: 1,
+                                color: AppColors.border.withOpacity(0.6),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                  Positioned(
+                    left: 76,
+                    top: 64,
+                    right: 20,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 14, vertical: 12),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF3E7DF),
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Abstract Gel Art',
+                            style: GoogleFonts.poppins(
+                              fontSize: 12.5,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.textPrimary,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            'Glow & Polish Studio • 1 hr',
+                            style: GoogleFonts.poppins(
+                              fontSize: 11.5,
+                              color: AppColors.textSecondary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class SelectOccasionPage extends StatefulWidget {
+  const SelectOccasionPage({super.key});
+
+  @override
+  State<SelectOccasionPage> createState() => _SelectOccasionPageState();
+}
+
+class _SelectOccasionPageState extends State<SelectOccasionPage> {
+  String _selected = 'Birthday';
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                Expanded(
+                  child: Text(
+                    'Select Occasion',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 48),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'What are we celebrating?',
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    'Choose an occasion to see curated packages\nand special arrangements.',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 16),
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 20),
+                children: [
+                  GridView.count(
+                    crossAxisCount: 2,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    mainAxisSpacing: 12,
+                    crossAxisSpacing: 12,
+                    childAspectRatio: 1.05,
+                    children: [
+                      _OccasionCard(
+                        label: 'Birthday',
+                        asset: 'assets/occasions/icon_birthday.png',
+                        selected: _selected == 'Birthday',
+                        onTap: () => setState(() => _selected = 'Birthday'),
+                      ),
+                      _OccasionCard(
+                        label: 'Bridal Party',
+                        asset: 'assets/occasions/icon_bridal.png',
+                        selected: _selected == 'Bridal Party',
+                        onTap: () => setState(() => _selected = 'Bridal Party'),
+                      ),
+                      _OccasionCard(
+                        label: 'Date Night',
+                        asset: 'assets/occasions/icon_date_night.png',
+                        selected: _selected == 'Date Night',
+                        onTap: () => setState(() => _selected = 'Date Night'),
+                      ),
+                      _OccasionCard(
+                        label: 'Anniversary',
+                        asset: 'assets/occasions/icon_anniversary.png',
+                        selected: _selected == 'Anniversary',
+                        onTap: () => setState(() => _selected = 'Anniversary'),
+                      ),
+                      _OccasionCard(
+                        label: 'Just Because',
+                        asset: 'assets/occasions/icon_just_because.png',
+                        selected: _selected == 'Just Because',
+                        onTap: () => setState(() => _selected = 'Just Because'),
+                      ),
+                      _OccasionCard(
+                        label: 'Maternity',
+                        asset: 'assets/occasions/icon_maternity.png',
+                        selected: _selected == 'Maternity',
+                        onTap: () => setState(() => _selected = 'Maternity'),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  _OccasionCustomCard(
+                    asset: 'assets/occasions/icon_custom.png',
+                    title: 'Something else?',
+                    subtitle: 'Create a custom package',
+                  ),
+                  const SizedBox(height: 18),
+                  _PrimaryButton(
+                    label: 'Continue',
+                    onPressed: () => Navigator.of(context)
+                        .pushNamed(AppRoutes.giftCard),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _OccasionCard extends StatelessWidget {
+  const _OccasionCard({
+    required this.label,
+    required this.asset,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final String label;
+  final String asset;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        decoration: BoxDecoration(
+          color: selected ? const Color(0xFFF9E9E8) : Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(color: AppColors.border),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 44,
+              width: 44,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0xFFF3E7DF),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Image.asset(
+                  asset,
+                  color: AppColors.accent,
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Text(
+              label,
+              style: GoogleFonts.poppins(
+                fontSize: 12.5,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _OccasionCustomCard extends StatelessWidget {
+  const _OccasionCustomCard({
+    required this.asset,
+    required this.title,
+    required this.subtitle,
+  });
+
+  final String asset;
+  final String title;
+  final String subtitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF3E7DF),
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        children: [
+          Container(
+            height: 44,
+            width: 44,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Image.asset(
+                asset,
+                color: AppColors.accent,
+              ),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: GoogleFonts.poppins(
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  subtitle,
+                  style: GoogleFonts.poppins(
+                    fontSize: 11.5,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const Icon(Icons.chevron_right, color: AppColors.textSecondary),
+        ],
+      ),
+    );
+  }
+}
+
+class GiftCardPage extends StatefulWidget {
+  const GiftCardPage({super.key});
+
+  @override
+  State<GiftCardPage> createState() => _GiftCardPageState();
+}
+
+class _GiftCardPageState extends State<GiftCardPage> {
+  int _selectedAmount = 1;
+  int _selectedColor = 1;
+
+  @override
+  Widget build(BuildContext context) {
+    final amounts = ['\$50', '\$100', '\$200'];
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                Expanded(
+                  child: Text(
+                    'Send a Gift',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 48),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Container(
+              height: 140,
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFFFFA5B5), Color(0xFFFFC7E1)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 18, 16, 18),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'BEAUTY SEND',
+                      style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const Spacer(),
+                    Text(
+                      '\$100',
+                      style: GoogleFonts.poppins(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text(
+                      'Happy Birthday!',
+                      style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 18),
+            Text(
+              'Choose Style',
+              style: GoogleFonts.poppins(
+                fontSize: 13.5,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: List.generate(5, (index) {
+                final colors = [
+                  const Color(0xFFFFC0CB),
+                  const Color(0xFFFF6B8A),
+                  const Color(0xFFC8A7E8),
+                  const Color(0xFF82E3C6),
+                  const Color(0xFF3EC9FF),
+                ];
+                final selected = _selectedColor == index;
+                return GestureDetector(
+                  onTap: () => setState(() => _selectedColor = index),
+                  child: Container(
+                    height: 44,
+                    width: 44,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: colors[index],
+                      border: Border.all(
+                        color: selected ? AppColors.accent : Colors.transparent,
+                        width: 2,
+                      ),
+                    ),
+                  ),
+                );
+              }),
+            ),
+            const SizedBox(height: 18),
+            Text(
+              'Select Amount',
+              style: GoogleFonts.poppins(
+                fontSize: 13.5,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: List.generate(3, (index) {
+                final selected = _selectedAmount == index;
+                return Expanded(
+                  child: GestureDetector(
+                    onTap: () => setState(() => _selectedAmount = index),
+                    child: Container(
+                      margin: EdgeInsets.only(right: index == 2 ? 0 : 10),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                        color: selected
+                            ? const Color(0xFFF6E8DF)
+                            : Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: selected ? AppColors.accent : AppColors.border,
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          amounts[index],
+                          style: GoogleFonts.poppins(
+                            fontSize: 12.5,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.textPrimary,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              }),
+            ),
+            const SizedBox(height: 12),
+            const _TextFieldBox(hintText: 'Enter custom amount'),
+            const SizedBox(height: 18),
+            Text(
+              'Recipient Details',
+              style: GoogleFonts.poppins(
+                fontSize: 13.5,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Name',
+              style: GoogleFonts.poppins(
+                fontSize: 12,
+                color: AppColors.textSecondary,
+              ),
+            ),
+            const SizedBox(height: 6),
+            const _TextFieldBox(hintText: 'Sarah Johnson'),
+            const SizedBox(height: 12),
+            Text(
+              'Mobile Number',
+              style: GoogleFonts.poppins(
+                fontSize: 12,
+                color: AppColors.textSecondary,
+              ),
+            ),
+            const SizedBox(height: 6),
+            const _TextFieldBox(hintText: '+1 234 567 8900'),
+            const SizedBox(height: 12),
+            Text(
+              'Message (Optional)',
+              style: GoogleFonts.poppins(
+                fontSize: 12,
+                color: AppColors.textSecondary,
+              ),
+            ),
+            const SizedBox(height: 6),
+            const _TextFieldBox(
+              hintText:
+                  'Happy Birthday! Hope you enjoy a relaxing day off.',
+            ),
+            const SizedBox(height: 18),
+            _PrimaryButton(
+              label: 'Proceed to Pay \$100',
+              onPressed: () {
+                showDialog<void>(
+                  context: context,
+                  barrierDismissible: true,
+                  builder: (_) => GiftContactDialog(
+                    onNotNow: () {
+                      Navigator.of(context).pop();
+                      Navigator.of(context)
+                          .pushNamed(AppRoutes.giftReviewPay);
+                    },
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class GiftContactDialog extends StatelessWidget {
+  const GiftContactDialog({super.key, required this.onNotNow});
+
+  final VoidCallback onNotNow;
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      backgroundColor: Colors.transparent,
+      insetPadding: const EdgeInsets.symmetric(horizontal: 28),
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(18, 20, 18, 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 16,
+              offset: const Offset(0, 10),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: 52,
+              width: 52,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0xFFF3E7DF),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Image.asset(
+                  'assets/gifts/icon_contacts.png',
+                  color: AppColors.accent,
+                ),
+              ),
+            ),
+            const SizedBox(height: 14),
+            Text(
+              'Quickly send beauty gifts to friends\nand family.',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                fontSize: 13.5,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 16),
+            _PrimaryButton(
+              label: 'Allow contacts access',
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            const SizedBox(height: 8),
+            TextButton(
+              onPressed: onNotNow,
+              child: Text(
+                'Not now',
+                style: GoogleFonts.poppins(
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textSecondary,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class GiftReviewPayPage extends StatelessWidget {
+  const GiftReviewPayPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                Expanded(
+                  child: Text(
+                    'Review & Pay',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 48),
+              ],
+            ),
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.fromLTRB(20, 8, 20, 12),
+                children: [
+                  Text(
+                    'Payment Method',
+                    style: GoogleFonts.poppins(
+                      fontSize: 13.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  _PaymentOption(
+                    label: 'My Wallet',
+                    subtitle: 'Balance: \$120.50',
+                    selected: true,
+                  ),
+                  const SizedBox(height: 10),
+                  _PaymentOption(
+                    label: 'Credit / Debit Card',
+                    subtitle: '**** 4829',
+                  ),
+                  const SizedBox(height: 10),
+                  _PaymentOption(
+                    label: 'Apple Pay',
+                  ),
+                  const SizedBox(height: 18),
+                  Text(
+                    'Payment Summary',
+                    style: GoogleFonts.poppins(
+                      fontSize: 13.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  _SummaryRow(label: 'Gift (Happy Birthday)', value: '\$100.00'),
+                  const SizedBox(height: 6),
+                  _SummaryRow(label: 'Service Fee', value: '\$2.00'),
+                  const Divider(height: 20, color: AppColors.border),
+                  _SummaryRow(
+                    label: 'Total Amount',
+                    value: '\$102.00',
+                    bold: true,
+                  ),
+                  const SizedBox(height: 18),
+                  Text(
+                    'Add Note (Optional)',
+                    style: GoogleFonts.poppins(
+                      fontSize: 13.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  TextField(
+                    maxLines: 3,
+                    decoration: InputDecoration(
+                      hintText: 'Any special requests or instructions?',
+                      hintStyle: GoogleFonts.poppins(
+                        fontSize: 12.5,
+                        color: AppColors.textSecondary,
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: const EdgeInsets.all(14),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(14),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 18),
+                  _PrimaryButton(
+                    label: 'Confirm & Pay \$102.00',
+                    onPressed: () => Navigator.of(context)
+                        .pushNamed(AppRoutes.giftPaymentConfirmed),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _PaymentOption extends StatelessWidget {
+  const _PaymentOption({
+    required this.label,
+    this.subtitle,
+    this.selected = false,
+  });
+
+  final String label;
+  final String? subtitle;
+  final bool selected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      decoration: BoxDecoration(
+        color: selected ? const Color(0xFFF3E7DF) : Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Row(
+        children: [
+          Container(
+            height: 28,
+            width: 28,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+            ),
+            child: const Icon(Icons.account_balance_wallet_outlined,
+                size: 16, color: AppColors.textSecondary),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  style: GoogleFonts.poppins(
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                if (subtitle != null)
+                  Text(
+                    subtitle!,
+                    style: GoogleFonts.poppins(
+                      fontSize: 11.5,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+          Container(
+            height: 18,
+            width: 18,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: AppColors.border),
+              color: selected ? AppColors.accent : Colors.white,
+            ),
+            child: selected
+                ? Center(
+                    child: Container(
+                      height: 6,
+                      width: 6,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                      ),
+                    ),
+                  )
+                : null,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class GiftPaymentConfirmedPage extends StatelessWidget {
+  const GiftPaymentConfirmedPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+            child: Column(
+              children: [
+                Container(
+                  height: 72,
+                  width: 72,
+                  decoration: const BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xFF3CB371),
+                  ),
+                  child: const Icon(Icons.check, color: Colors.white, size: 34),
+                ),
+                const SizedBox(height: 18),
+                Text(
+                  'Payment Confirmed!',
+                  style: GoogleFonts.poppins(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Your gift has been successfully\nplaced. We\\'ve sent the details to the recipient.',
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.poppins(
+                    fontSize: 12.5,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+                const SizedBox(height: 18),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: AppColors.border),
+                  ),
+                  child: Column(
+                    children: [
+                      _SummaryLine(
+                        label: 'Recipient Name',
+                        value: 'John Doe',
+                      ),
+                      _SummaryLine(
+                        label: 'Gift',
+                        value: 'Happy Birthday',
+                      ),
+                      const Divider(height: 20, color: AppColors.border),
+                      _SummaryLine(
+                        label: 'Date',
+                        value: 'Oct 24, 2023',
+                      ),
+                      _SummaryLine(
+                        label: 'Time',
+                        value: '10:00 AM',
+                      ),
+                      const Divider(height: 20, color: AppColors.border),
+                      _SummaryLine(
+                        label: 'Total Paid',
+                        value: '\$102.00',
+                        valueColor: AppColors.accent,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 18),
+                _PrimaryButton(
+                  label: 'Back Home',
+                  onPressed: () => Navigator.of(context)
+                      .pushNamedAndRemoveUntil(AppRoutes.home, (_) => false),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class RedeemCodePage extends StatelessWidget {
+  const RedeemCodePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                Expanded(
+                  child: Text(
+                    'Redeem Code',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 48),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Container(
+              height: 72,
+              width: 72,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0xFFF3E7DF),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Image.asset(
+                  'assets/gifts/icon_gift.png',
+                  color: AppColors.accent,
+                ),
+              ),
+            ),
+            const SizedBox(height: 18),
+            Text(
+              'Got a Gift Card?',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                fontSize: 18,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Enter your promo code or gift card\nnumber below to add funds to your\nwallet.',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                fontSize: 12.5,
+                color: AppColors.textSecondary,
+              ),
+            ),
+            const SizedBox(height: 18),
+            Text(
+              'Enter Code',
+              style: GoogleFonts.poppins(
+                fontSize: 12.5,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: AppColors.border),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: 'e.g. BEAUTY2023',
+                        hintStyle: GoogleFonts.poppins(
+                          fontSize: 12.5,
+                          color: AppColors.textSecondary,
+                        ),
+                        border: InputBorder.none,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF3E7DF),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Text(
+                      'PASTE',
+                      style: GoogleFonts.poppins(
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.accent,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 18),
+            _PrimaryButton(
+              label: 'Redeem Code',
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'By redeeming, you agree to the Gift Card\nTerms.\nBalance never expires.',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                fontSize: 11.5,
+                color: AppColors.textSecondary,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class MyBookingsPage extends StatelessWidget {
+  const MyBookingsPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(height: 8),
+            Text(
+              'My Bookings',
+              style: GoogleFonts.poppins(
+                fontSize: 17,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 14),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Container(
+                padding: const EdgeInsets.all(4),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: AppColors.border),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFF3E7DF),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Upcoming',
+                            style: GoogleFonts.poppins(
+                              fontSize: 12.5,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.textPrimary,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Center(
+                        child: Text(
+                          'History',
+                          style: GoogleFonts.poppins(
+                            fontSize: 12.5,
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Expanded(
+              child: ListView(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
+                children: const [
+                  _BookingCard(
+                    title: 'Pure Bliss Spa & Salon',
+                    subtitle: 'Full Body Massage • 60 min',
+                    time: 'Tomorrow, 10:00 AM',
+                    location: 'In-Salon',
+                    status: 'Confirmed',
+                  ),
+                  _BookingCard(
+                    title: 'Nails by Sarah',
+                    subtitle: 'Gel Manicure • 45 min',
+                    time: 'Oct 24, 2:00 PM',
+                    location: 'Home Service',
+                    status: 'Pending',
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: _BottomNavBar(
+        currentIndex: 2,
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.of(context)
+                .pushReplacementNamed(AppRoutes.home);
+          } else if (index == 1) {
+            Navigator.of(context)
+                .pushReplacementNamed(AppRoutes.explore);
+          } else if (index == 2) {
+            return;
+          } else if (index == 3) {
+            Navigator.of(context)
+                .pushReplacementNamed(AppRoutes.wallet);
+          } else if (index == 4) {
+            Navigator.of(context)
+                .pushReplacementNamed(AppRoutes.profile);
+          }
+        },
+      ),
+    );
+  }
+}
+
+class _BookingCard extends StatelessWidget {
+  const _BookingCard({
+    required this.title,
+    required this.subtitle,
+    required this.time,
+    required this.location,
+    required this.status,
+  });
+
+  final String title;
+  final String subtitle;
+  final String time;
+  final String location;
+  final String status;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                height: 44,
+                width: 44,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFE7DED7),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: GoogleFonts.poppins(
+                        fontSize: 12.5,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                    Text(
+                      subtitle,
+                      style: GoogleFonts.poppins(
+                        fontSize: 11.5,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF3E7DF),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Text(
+                  status,
+                  style: GoogleFonts.poppins(
+                    fontSize: 10.5,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.accent,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              const Icon(Icons.calendar_today_outlined,
+                  size: 14, color: AppColors.textSecondary),
+              const SizedBox(width: 6),
+              Text(
+                time,
+                style: GoogleFonts.poppins(
+                  fontSize: 11.5,
+                  color: AppColors.textSecondary,
+                ),
+              ),
+              const SizedBox(width: 12),
+              const Icon(Icons.location_on_outlined,
+                  size: 14, color: AppColors.textSecondary),
+              const SizedBox(width: 6),
+              Text(
+                location,
+                style: GoogleFonts.poppins(
+                  fontSize: 11.5,
+                  color: AppColors.textSecondary,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Text(
+                'Cancel',
+                style: GoogleFonts.poppins(
+                  fontSize: 12,
+                  color: AppColors.accent,
+                ),
+              ),
+              const Spacer(),
+              Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                decoration: BoxDecoration(
+                  color: AppColors.accent,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  'Reschedule',
+                  style: GoogleFonts.poppins(
+                    fontSize: 11.5,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AddMoneyPage extends StatelessWidget {
+  const AddMoneyPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                Expanded(
+                  child: Text(
+                    'Add Money',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 48),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.fromLTRB(16, 18, 16, 16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: AppColors.border),
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    'ENTER AMOUNT',
+                    style: GoogleFonts.poppins(
+                      fontSize: 11,
+                      letterSpacing: 1,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    '\$50.00',
+                    style: GoogleFonts.poppins(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.accent,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _AmountChip(label: '\$20'),
+                      const SizedBox(width: 8),
+                      _AmountChip(label: '\$50', selected: true),
+                      const SizedBox(width: 8),
+                      _AmountChip(label: '\$100'),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 18),
+            Text(
+              'Payment Method',
+              style: GoogleFonts.poppins(
+                fontSize: 13.5,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 10),
+            _PaymentMethodRow(
+              title: 'Mastercard',
+              subtitle: '•••• 4829',
+              selected: true,
+            ),
+            const SizedBox(height: 10),
+            _PaymentMethodRow(
+              title: 'Apple Pay',
+              subtitle: 'Default',
+            ),
+            const SizedBox(height: 10),
+            _PaymentMethodRow(
+              title: 'Google Pay',
+              subtitle: 'Available on this device',
+            ),
+            const SizedBox(height: 10),
+            InkWell(
+              onTap: () => Navigator.of(context)
+                  .pushNamed(AppRoutes.addNewCard),
+              borderRadius: BorderRadius.circular(14),
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 14, vertical: 12),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: AppColors.border),
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      height: 28,
+                      width: 28,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: AppColors.border),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: const Icon(Icons.add,
+                          size: 16, color: AppColors.textSecondary),
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      'Add New Card',
+                      style: GoogleFonts.poppins(
+                        fontSize: 12.5,
+                        color: AppColors.textPrimary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _AmountChip extends StatelessWidget {
+  const _AmountChip({required this.label, this.selected = false});
+
+  final String label;
+  final bool selected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+      decoration: BoxDecoration(
+        color: selected ? const Color(0xFFF3E7DF) : Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Text(
+        label,
+        style: GoogleFonts.poppins(
+          fontSize: 12,
+          color: AppColors.textPrimary,
+        ),
+      ),
+    );
+  }
+}
+
+class _PaymentMethodRow extends StatelessWidget {
+  const _PaymentMethodRow({
+    required this.title,
+    required this.subtitle,
+    this.selected = false,
+  });
+
+  final String title;
+  final String subtitle;
+  final bool selected;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      decoration: BoxDecoration(
+        color: selected ? const Color(0xFFF3E7DF) : Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Row(
+        children: [
+          Container(
+            height: 28,
+            width: 28,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: const Icon(Icons.credit_card,
+                size: 16, color: AppColors.textSecondary),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: GoogleFonts.poppins(
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                Text(
+                  subtitle,
+                  style: GoogleFonts.poppins(
+                    fontSize: 11.5,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            height: 18,
+            width: 18,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: AppColors.border),
+              color: selected ? AppColors.accent : Colors.white,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AddNewCardPage extends StatelessWidget {
+  const AddNewCardPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
+          children: [
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+                Expanded(
+                  child: Text(
+                    'Add New Card',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.poppins(
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 48),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Container(
+              height: 140,
+              decoration: BoxDecoration(
+                color: const Color(0xFFC7A28A),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Stack(
+                children: [
+                  Positioned(
+                    right: 12,
+                    top: 12,
+                    child: Container(
+                      height: 44,
+                      width: 44,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Color(0xFFB79178),
+                      ),
+                      child: const Icon(Icons.wifi, color: Colors.white),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 26,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                        ),
+                        const SizedBox(height: 14),
+                        Text(
+                          '••••  ••••  ••••  ••••',
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            letterSpacing: 2,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const Spacer(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'CARD HOLDER\nYOUR NAME',
+                              style: GoogleFonts.poppins(
+                                fontSize: 10,
+                                color: Colors.white70,
+                              ),
+                            ),
+                            Text(
+                              'EXPIRES\nMM/YY',
+                              style: GoogleFonts.poppins(
+                                fontSize: 10,
+                                color: Colors.white70,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 18),
+            Text('Card Number',
+                style: GoogleFonts.poppins(
+                    fontSize: 12.5, color: AppColors.textPrimary)),
+            const SizedBox(height: 6),
+            const _TextFieldBox(hintText: '0000 0000 0000 0000'),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Expiry Date',
+                          style: GoogleFonts.poppins(
+                              fontSize: 12.5,
+                              color: AppColors.textPrimary)),
+                      const SizedBox(height: 6),
+                      const _TextFieldBox(hintText: 'MM/YY'),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('CVV / CVC',
+                          style: GoogleFonts.poppins(
+                              fontSize: 12.5,
+                              color: AppColors.textPrimary)),
+                      const SizedBox(height: 6),
+                      const _TextFieldBox(hintText: '123'),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Text('Cardholder Name',
+                style: GoogleFonts.poppins(
+                    fontSize: 12.5, color: AppColors.textPrimary)),
+            const SizedBox(height: 6),
+            const _TextFieldBox(hintText: 'Name on card'),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                const Icon(Icons.lock, size: 14, color: AppColors.textSecondary),
+                const SizedBox(width: 6),
+                Text(
+                  'Your payment information is secure',
+                  style: GoogleFonts.poppins(
+                    fontSize: 11.5,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 18),
+            _PrimaryButton(
+              label: 'Save Card',
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class WalletPage extends StatelessWidget {
+  const WalletPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
+          children: [
+            Text(
+              'Wallet',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                fontSize: 17,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 14),
+            Container(
+              padding: const EdgeInsets.fromLTRB(16, 18, 16, 16),
+              decoration: BoxDecoration(
+                color: AppColors.accent,
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    'Available Balance',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      color: Colors.white70,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Text(
+                    '\$142.50',
+                    style: GoogleFonts.poppins(
+                      fontSize: 26,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(height: 14),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton(
+                          onPressed: () => Navigator.of(context)
+                              .pushNamed(AppRoutes.addMoney),
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            side: BorderSide.none,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          child: const Text('Add Money'),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: OutlinedButton(
+                          onPressed: () => Navigator.of(context)
+                              .pushNamed(AppRoutes.redeemCode),
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: Colors.white.withOpacity(0.25),
+                            side: BorderSide.none,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                          child: const Text(
+                            'Redeem',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF3E7DF),
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      'Got a gift code? Redeem it now to add\ncredits to your wallet.',
+                      style: GoogleFonts.poppins(
+                        fontSize: 11.5,
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ),
+                  const Icon(Icons.chevron_right,
+                      color: AppColors.textSecondary),
+                ],
+              ),
+            ),
+            const SizedBox(height: 18),
+            Row(
+              children: [
+                Text(
+                  'Recent Transactions',
+                  style: GoogleFonts.poppins(
+                    fontSize: 13.5,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  'View All',
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    color: AppColors.accent,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            const _TransactionRow(
+              title: 'Added to Wallet',
+              time: 'Today, 10:23 AM',
+              amount: '+\$50.00',
+              positive: true,
+            ),
+            const _TransactionRow(
+              title: 'Pure Bliss Spa',
+              time: 'Oct 22, 4:00 PM',
+              amount: '-\$85.00',
+            ),
+            const _TransactionRow(
+              title: 'Gift from Sarah',
+              time: 'Oct 15, 9:30 AM',
+              amount: '+\$90.00',
+              positive: true,
+            ),
+            const _TransactionRow(
+              title: 'Cancellation Refund',
+              time: 'Oct 10, 1:15 PM',
+              amount: '-\$60.00',
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: _BottomNavBar(
+        currentIndex: 3,
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.of(context)
+                .pushReplacementNamed(AppRoutes.home);
+          } else if (index == 1) {
+            Navigator.of(context)
+                .pushReplacementNamed(AppRoutes.explore);
+          } else if (index == 2) {
+            Navigator.of(context)
+                .pushReplacementNamed(AppRoutes.myBookings);
+          } else if (index == 3) {
+            return;
+          } else if (index == 4) {
+            Navigator.of(context)
+                .pushReplacementNamed(AppRoutes.profile);
+          }
+        },
+      ),
+    );
+  }
+}
+
+class _TransactionRow extends StatelessWidget {
+  const _TransactionRow({
+    required this.title,
+    required this.time,
+    required this.amount,
+    this.positive = false,
+  });
+
+  final String title;
+  final String time;
+  final String amount;
+  final bool positive;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Row(
+        children: [
+          Container(
+            height: 32,
+            width: 32,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: positive ? const Color(0xFF3CB371) : const Color(0xFFE7DED7),
+            ),
+            child: Icon(
+              positive ? Icons.arrow_downward : Icons.arrow_upward,
+              size: 16,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: GoogleFonts.poppins(
+                    fontSize: 12.5,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                Text(
+                  time,
+                  style: GoogleFonts.poppins(
+                    fontSize: 11,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Text(
+            amount,
+            style: GoogleFonts.poppins(
+              fontSize: 12.5,
+              fontWeight: FontWeight.w600,
+              color: positive ? const Color(0xFF3CB371) : AppColors.textPrimary,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+          children: [
+            Text(
+              'Profile',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.poppins(
+                fontSize: 17,
+                fontWeight: FontWeight.w600,
+                color: AppColors.textPrimary,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Center(
+              child: Column(
+                children: [
+                  Container(
+                    height: 72,
+                    width: 72,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Color(0xFFE7DED7),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Jessica Miller',
+                    style: GoogleFonts.poppins(
+                      fontSize: 14.5,
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.textPrimary,
+                    ),
+                  ),
+                  Text(
+                    '+1 (555) 123-4567',
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFF3E7DF),
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: Text(
+                      'Edit Profile',
+                      style: GoogleFonts.poppins(
+                        fontSize: 11.5,
+                        color: AppColors.accent,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 18),
+            const _ProfileSectionTitle(title: 'ACCOUNT'),
+            _ProfileTile(
+              icon: Icons.location_on_outlined,
+              label: 'Saved Addresses',
+            ),
+            _ProfileTile(
+              icon: Icons.credit_card,
+              label: 'Payment Methods',
+            ),
+            const SizedBox(height: 8),
+            const _ProfileSectionTitle(title: 'ACTIVITY'),
+            _ProfileTile(
+              icon: Icons.favorite_border,
+              label: 'My Favorites',
+            ),
+            _ProfileTile(
+              icon: Icons.card_giftcard_outlined,
+              label: 'My Gifts',
+              badge: '2 New',
+            ),
+            const SizedBox(height: 8),
+            const _ProfileSectionTitle(title: 'BUSINESS'),
+            _ProfileTile(
+              icon: Icons.storefront_outlined,
+              label: 'Register as Salon',
+            ),
+            const SizedBox(height: 8),
+            const _ProfileSectionTitle(title: 'GENERAL'),
+            _ProfileTile(
+              icon: Icons.notifications_none,
+              label: 'Notifications',
+            ),
+            _ProfileTile(
+              icon: Icons.help_outline,
+              label: 'Help & Support',
+            ),
+            _ProfileTile(
+              icon: Icons.language,
+              label: 'Select Language',
+            ),
+            const SizedBox(height: 12),
+            OutlinedButton(
+              onPressed: () {},
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: AppColors.border),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                minimumSize: const Size(double.infinity, 48),
+              ),
+              child: Text(
+                'Log Out',
+                style: GoogleFonts.poppins(
+                  fontSize: 13,
+                  color: AppColors.accent,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: _BottomNavBar(
+        currentIndex: 4,
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.of(context)
+                .pushReplacementNamed(AppRoutes.home);
+          } else if (index == 1) {
+            Navigator.of(context)
+                .pushReplacementNamed(AppRoutes.explore);
+          } else if (index == 2) {
+            Navigator.of(context)
+                .pushReplacementNamed(AppRoutes.myBookings);
+          } else if (index == 3) {
+            Navigator.of(context)
+                .pushReplacementNamed(AppRoutes.wallet);
+          } else if (index == 4) {
+            return;
+          }
+        },
+      ),
+    );
+  }
+}
+
+class _ProfileSectionTitle extends StatelessWidget {
+  const _ProfileSectionTitle({required this.title});
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6),
+      child: Text(
+        title,
+        style: GoogleFonts.poppins(
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
+          letterSpacing: 1,
+          color: AppColors.textSecondary,
+        ),
+      ),
+    );
+  }
+}
+
+class _ProfileTile extends StatelessWidget {
+  const _ProfileTile({
+    required this.icon,
+    required this.label,
+    this.badge,
+  });
+
+  final IconData icon;
+  final String label;
+  final String? badge;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Row(
+        children: [
+          Container(
+            height: 36,
+            width: 36,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Color(0xFFF3E7DF),
+            ),
+            child: Icon(icon, color: AppColors.accent, size: 18),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              label,
+              style: GoogleFonts.poppins(
+                fontSize: 12.5,
+                color: AppColors.textPrimary,
+              ),
+            ),
+          ),
+          if (badge != null)
+            Container(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              decoration: BoxDecoration(
+                color: AppColors.accent,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Text(
+                badge!,
+                style: GoogleFonts.poppins(
+                  fontSize: 10,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          const SizedBox(width: 6),
+          const Icon(Icons.chevron_right, color: AppColors.textSecondary),
+        ],
+      ),
+    );
+  }
+}
+
+class ExplorePage extends StatelessWidget {
+  const ExplorePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(14),
+              ),
+              child: Row(
+                children: [
+                  const Icon(Icons.search,
+                      color: AppColors.textSecondary, size: 18),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Find salons, services...',
+                    style: GoogleFonts.poppins(
+                      fontSize: 13,
+                      color: AppColors.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Image.asset(
+                  'assets/home/icon_filter.png',
+                  height: 18,
+                  color: AppColors.textSecondary,
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: const [
+                        _FilterChip(label: 'All', selected: true),
+                        SizedBox(width: 8),
+                        _FilterChip(label: 'Near Me'),
+                        SizedBox(width: 8),
+                        _FilterChip(label: 'Ratings'),
+                        SizedBox(width: 8),
+                        _FilterChip(label: 'Open Now'),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Row(
+              children: [
+                Text(
+                  'Recommended for you',
+                  style: GoogleFonts.poppins(
+                    fontSize: 13.5,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
+                const Spacer(),
+                Text(
+                  'Filter',
+                  style: GoogleFonts.poppins(
+                    fontSize: 12,
+                    color: AppColors.accent,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            const _ExploreCard(
+              title: 'Glow & Polish Studio',
+              subtitle: 'Downtown Area • 1.2 km',
+              rating: '4.9',
+              tags: ['Nails', 'Spa', 'Facial'],
+            ),
+            const _ExploreCard(
+              title: 'Urban Cuts & Shaves',
+              subtitle: 'West Avenue • 2.5 km',
+              rating: '4.8',
+              tags: ['Haircut', 'Beard Trim'],
+            ),
+            const _ExploreCard(
+              title: 'Serenity Day Spa',
+              subtitle: 'Uptown Mall • 0.8 km',
+              rating: '5.0',
+              tags: ['Massage', 'Therapy', 'Sauna'],
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: _BottomNavBar(
+        currentIndex: 1,
+        onTap: (index) {
+          if (index == 0) {
+            Navigator.of(context)
+                .pushReplacementNamed(AppRoutes.home);
+          } else if (index == 1) {
+            return;
+          } else if (index == 2) {
+            Navigator.of(context)
+                .pushReplacementNamed(AppRoutes.myBookings);
+          } else if (index == 3) {
+            Navigator.of(context)
+                .pushReplacementNamed(AppRoutes.wallet);
+          } else if (index == 4) {
+            Navigator.of(context)
+                .pushReplacementNamed(AppRoutes.profile);
+          }
+        },
+      ),
+    );
+  }
+}
+
+class _ExploreCard extends StatelessWidget {
+  const _ExploreCard({
+    required this.title,
+    required this.subtitle,
+    required this.rating,
+    required this.tags,
+  });
+
+  final String title;
+  final String subtitle;
+  final String rating;
+  final List<String> tags;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.only(bottom: 16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.border),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            height: 140,
+            decoration: BoxDecoration(
+              color: const Color(0xFFE7DED7),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(16),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
                     Expanded(
                       child: Text(
                         title,
                         style: GoogleFonts.poppins(
-                          fontSize: 14.5,
+                          fontSize: 13,
                           fontWeight: FontWeight.w600,
                           color: AppColors.textPrimary,
                         ),
                       ),
                     ),
-                    const Icon(Icons.star, size: 14, color: Colors.amber),
+                    const Icon(Icons.star,
+                        size: 12, color: Colors.amber),
                     const SizedBox(width: 4),
                     Text(
                       rating,
                       style: GoogleFonts.poppins(
-                        fontSize: 12,
+                        fontSize: 11.5,
                         color: AppColors.textSecondary,
                       ),
                     ),
@@ -1557,7 +8457,7 @@ class _SearchResultCard extends StatelessWidget {
                 Text(
                   subtitle,
                   style: GoogleFonts.poppins(
-                    fontSize: 12,
+                    fontSize: 11.5,
                     color: AppColors.textSecondary,
                   ),
                 ),
@@ -1566,37 +8466,25 @@ class _SearchResultCard extends StatelessWidget {
                   spacing: 6,
                   runSpacing: 6,
                   children: tags
-                      .map((tag) => Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 5),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFF3E7DF),
-                              borderRadius: BorderRadius.circular(12),
+                      .map(
+                        (tag) => Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFF3E7DF),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: Text(
+                            tag,
+                            style: GoogleFonts.poppins(
+                              fontSize: 11,
+                              color: AppColors.accent,
                             ),
-                            child: Text(
-                              tag,
-                              style: GoogleFonts.poppins(
-                                fontSize: 11,
-                                color: AppColors.accent,
-                              ),
-                            ),
-                          ))
+                          ),
+                        ),
+                      )
                       .toList(),
                 ),
-                if (priceLabel != null) ...[
-                  const SizedBox(height: 8),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      priceLabel!,
-                      style: GoogleFonts.poppins(
-                        fontSize: 12.5,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.textPrimary,
-                      ),
-                    ),
-                  ),
-                ],
               ],
             ),
           ),
