@@ -1869,7 +1869,7 @@ class _PartnerHomePageState extends State<PartnerHomePage> {
                 Row(
                   children: [
                     Expanded(
-                      child: _ReviewCard(
+                      child: _PartnerHomeReviewCard(
                         name: 'Maria K.',
                         rating: '5.0',
                         text:
@@ -1878,7 +1878,7 @@ class _PartnerHomePageState extends State<PartnerHomePage> {
                     ),
                     const SizedBox(width: 12),
                     Expanded(
-                      child: _ReviewCard(
+                      child: _PartnerHomeReviewCard(
                         name: 'Layla',
                         rating: '4.4',
                         text:
@@ -1893,7 +1893,7 @@ class _PartnerHomePageState extends State<PartnerHomePage> {
               Positioned(
                 right: 20,
                 top: 60,
-                child: _LanguageDropdown(
+                child: _PartnerLanguageDropdown(
                   current: _language,
                   onSelect: (value) => setState(() {
                     _language = value;
@@ -2127,8 +2127,8 @@ class _PartnerBookingRow extends StatelessWidget {
   }
 }
 
-class _ReviewCard extends StatelessWidget {
-  const _ReviewCard({
+class _PartnerHomeReviewCard extends StatelessWidget {
+  const _PartnerHomeReviewCard({
     required this.name,
     required this.rating,
     required this.text,
@@ -2185,8 +2185,8 @@ class _ReviewCard extends StatelessWidget {
   }
 }
 
-class _LanguageDropdown extends StatelessWidget {
-  const _LanguageDropdown({
+class _PartnerLanguageDropdown extends StatelessWidget {
+  const _PartnerLanguageDropdown({
     required this.current,
     required this.onSelect,
   });
@@ -3140,7 +3140,7 @@ class _AppointmentDetailsScaffold extends StatelessWidget {
                   Expanded(
                     child: _PrimaryButton(
                       label: 'Accept Booking',
-                      onPressed: onAccept,
+                      onPressed: onAccept ?? () {},
                     ),
                   ),
                 ],
@@ -10341,17 +10341,17 @@ class ReviewBookingPage extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 10),
-                              _InfoRow(
+                              _InfoIconRow(
                                 icon: Icons.calendar_today_outlined,
                                 text: 'Tue, 24 Oct • 10:30 AM',
                               ),
                               const SizedBox(height: 6),
-                              _InfoRow(
+                              _InfoIconRow(
                                 icon: Icons.spa_outlined,
                                 text: 'Classic Manicure • 45 min',
                               ),
                               const SizedBox(height: 6),
-                              _InfoRow(
+                              _InfoIconRow(
                                 icon: Icons.person_outline,
                                 text: 'Staff: Sarah',
                               ),
@@ -10536,8 +10536,8 @@ class ReviewBookingPage extends StatelessWidget {
   }
 }
 
-class _InfoRow extends StatelessWidget {
-  const _InfoRow({required this.icon, required this.text});
+class _InfoIconRow extends StatelessWidget {
+  const _InfoIconRow({required this.icon, required this.text});
 
   final IconData icon;
   final String text;
